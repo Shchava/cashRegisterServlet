@@ -32,7 +32,7 @@ public class JDBCUserDao implements UserDao {
             }
         }catch (Exception ex){
             ex.printStackTrace();
-        };
+        }
         return created;
     }
 
@@ -54,13 +54,27 @@ public class JDBCUserDao implements UserDao {
             }
         }catch (Exception ex){
             ex.printStackTrace();
-        };
+        }
         return Optional.ofNullable(user);
     }
 
     @Override
     public boolean update(User entity) {
-        return false;
+        boolean created = false;
+        String query = "UPDATE user SET username = ?, email = ?, password_hash = ?, role = ? WHERE id_user = ?";
+        try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
+            statement.setString(1,entity.getUsername());
+            statement.setString(2,entity.getEmail());
+            statement.setString(3,entity.getPassword());
+            statement.setInt(4,entity.getRole().ordinal());
+            statement.setLong(5,entity.getId());
+
+            int affected = statement.executeUpdate();
+            created = affected == 1;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return created;
     }
 
     @Override
@@ -72,7 +86,7 @@ public class JDBCUserDao implements UserDao {
             affected = true;
         }catch (Exception ex){
             ex.printStackTrace();
-        };
+        }
         return affected;
     }
 
