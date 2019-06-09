@@ -22,7 +22,7 @@ public class Login extends HttpServlet {
         if(auth.checkAuthority(login,password)) {
             User user = auth.findUser(login).get();
             request.getSession().setAttribute("login", login);
-            request.getSession().setAttribute("Role", user.getRole().name());
+            request.getSession().setAttribute("Role", user.getRole());
             response.sendRedirect("/hello");
         }else{
             response.sendRedirect("/login");
