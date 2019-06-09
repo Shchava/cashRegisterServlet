@@ -17,7 +17,7 @@ public class Register extends HttpServlet {
         String login = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        Roles role = Roles.values()[Integer.parseInt(request.getParameter("role"))];
+        Roles role = Roles.valueOf(request.getParameter("role"));
 
         UserRegistration register = new UserRegistration();
         User user = register.createUser(login,email,password,role);

@@ -18,9 +18,9 @@
         <input type="text" name="email"><br>
         <input type="password" name="password"><br>
         <select name="role">
-            <option value="1">senior cashier</option>
-            <option value="2">cashier</option>
-            <option value="3">merchandiser</option>
+            <option value="SENIOR_CASHIER">senior cashier</option>
+            <option value="CASHIER">cashier</option>
+            <option value="MERCHANDISER">merchandiser</option>
         </select><br>
         <input type = submit>
     </form>
