@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = {"/hello","/", "/welcome"})
+@WebServlet(urlPatterns = {"/hello" , "/welcome"})
 public class Servlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<h3>Hello Wffffforld!</h3>");
+        response.sendRedirect("/index.jsp");
     }
 }

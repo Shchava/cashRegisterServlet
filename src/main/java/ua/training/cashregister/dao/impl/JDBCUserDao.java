@@ -76,6 +76,24 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
+    public Optional<User> findByUsername(String username) {
+        User user = null;
+        UserMapper mapper = new UserMapper();
+
+        final String query = "SELECT * FROM user WHERE username = ?;";
+        try(PreparedStatement statement =  connection.prepareStatement(query)){
+            statement.setString(1,username);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                user = mapper.extractFromResultSet(result);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return Optional.ofNullable(user);
+    }
+
+    @Override
     public boolean update(User entity) {
         boolean created = false;
         final String query = "UPDATE user SET username = ?, email = ?, password_hash = ?, role = ? WHERE id_user = ?";
@@ -123,4 +141,6 @@ public class JDBCUserDao implements UserDao {
             System.out.println();
         }
     }
+
+
 }
