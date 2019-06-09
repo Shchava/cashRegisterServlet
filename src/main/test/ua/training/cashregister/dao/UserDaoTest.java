@@ -28,7 +28,7 @@ public class UserDaoTest {
 
     @Test
     @Order(1)
-    public void atestCreate(){
+    public void atestCreateAndFindByID(){
         user = new User(name,email,password,role);
         assertTrue(dao.create(user));
         User dbUser = dao.findById(user.getId()).get();
@@ -38,6 +38,12 @@ public class UserDaoTest {
 
     @Test
     @Order(2)
+    public void btestFindByName(){
+        assertEquals(user,dao.findByUsername(name).get());
+    }
+
+    @Test
+    @Order(3)
     public void testUpdate(){
         user.setUsername(newName);
         //dao.update(user);
@@ -49,7 +55,7 @@ public class UserDaoTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     public void testFindAll(){
 
 
@@ -59,14 +65,14 @@ public class UserDaoTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     public void wtestDelete(){
         assertTrue(dao.delete(id));
         assertFalse(dao.findById(id).isPresent());
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     public void xtestClose(){
         User user = new User(newName,email,password,role);
         dao.close();
