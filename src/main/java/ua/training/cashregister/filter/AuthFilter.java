@@ -1,7 +1,4 @@
-package ua.training.cashregister.controller;
-
-import ua.training.cashregister.entity.Roles;
-import ua.training.cashregister.service.user.Authentification;
+package ua.training.cashregister.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

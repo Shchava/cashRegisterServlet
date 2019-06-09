@@ -1,9 +1,5 @@
 package ua.training.cashregister.controller;
 
-import ua.training.cashregister.entity.User;
-import ua.training.cashregister.service.user.Authentification;
-
-import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

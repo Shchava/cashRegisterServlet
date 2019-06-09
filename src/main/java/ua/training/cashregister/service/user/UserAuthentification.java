@@ -7,8 +7,8 @@ import ua.training.cashregister.entity.User;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Authentification {
-    DaoFactory daoFactory = DaoFactory.getInstance();
+public class UserAuthentification {
+    private DaoFactory daoFactory = DaoFactory.getInstance();
 
     public Optional<User> findUser(String username){
         UserDao dao =  daoFactory.createUserDao();
@@ -19,11 +19,15 @@ public class Authentification {
         UserDao dao =  daoFactory.createUserDao();
         AtomicBoolean authority = new AtomicBoolean(false);
         findUser(username).ifPresent(user -> {
-            authority.set(checkPassword(password, user.getPassword()));});
+            authority.set(checkPassword(password, user.getPasswordHash()));});
         return authority.get();
     }
 
+    public String codePassword(String password){
+        return password;
+    }
+
     private boolean checkPassword(String password,String hash){
-        return password.equals(hash);
+        return codePassword(password).equals(hash);
     }
 }

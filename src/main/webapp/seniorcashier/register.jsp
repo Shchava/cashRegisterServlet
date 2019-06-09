@@ -6,21 +6,33 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Register</title>
 </head>
 <body>
-    <form action="${pageContext.request.contextPath}/seniorcashier/register">
+    <form action="/seniorcashier/register/" method="POST">
         <input type="text" name="username"><br>
+        <input type="text" name="email"><br>
         <input type="password" name="password"><br>
         <select name="role">
-            <option value="seniorCashier">senior cashier</option>
-            <option value="cashier">cashier</option>
-            <option value="merchandiser">merchandiser</option>
+            <option value="1">senior cashier</option>
+            <option value="2">cashier</option>
+            <option value="3">merchandiser</option>
         </select><br>
         <input type = submit>
     </form>
+
+    <c:if test="${requestScope.registred eq true}">
+        <h1>gdgsdg</h1>
+    </c:if>
+    
+    <c:if test="${not empty requestScope.registered}">
+        <h1>registerd : ${requestScope.registeed}</h1>
+        </c:if>
+
+
 </body>
 </html>

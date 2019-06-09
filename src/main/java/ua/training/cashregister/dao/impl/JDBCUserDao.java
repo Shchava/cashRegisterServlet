@@ -23,7 +23,7 @@ public class JDBCUserDao implements UserDao {
         try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1,entity.getUsername());
             statement.setString(2,entity.getEmail());
-            statement.setString(3,entity.getPassword());
+            statement.setString(3,entity.getPasswordHash());
             statement.setInt(4,entity.getRole().ordinal());
 
             int affected = statement.executeUpdate();
@@ -100,7 +100,7 @@ public class JDBCUserDao implements UserDao {
         try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1,entity.getUsername());
             statement.setString(2,entity.getEmail());
-            statement.setString(3,entity.getPassword());
+            statement.setString(3,entity.getPasswordHash());
             statement.setInt(4,entity.getRole().ordinal());
             statement.setLong(5,entity.getId());
 

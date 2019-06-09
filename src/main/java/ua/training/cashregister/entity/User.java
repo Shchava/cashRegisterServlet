@@ -10,17 +10,17 @@ public class User {
 
     private String email;
 
-    private String password;
+    private String passwordHash;
 
     private Roles role;
 
     public User() {
     }
 
-    public User(String username, String email, String password, Roles role) {
+    public User(String username, String email, String passwordHash, Roles role) {
         this.username = username;
         this.email = email;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.role = role;
     }
 
@@ -48,12 +48,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public Roles getRole() {
@@ -72,12 +72,12 @@ public class User {
         return id == user.id &&
                 username.equals(user.username) &&
                 email.equals(user.email) &&
-                password.equals(user.password) &&
+                passwordHash.equals(user.passwordHash) &&
                 role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, email, password, role);
+        return Objects.hash(id, username, email, passwordHash, role);
     }
 }

@@ -1,7 +1,7 @@
 package ua.training.cashregister.controller;
 
 import ua.training.cashregister.entity.User;
-import ua.training.cashregister.service.user.Authentification;
+import ua.training.cashregister.service.user.UserAuthentification;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/login/")
 public class Login extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Authentification auth = new Authentification();
+        UserAuthentification auth = new UserAuthentification();
         String login = request.getParameter("username");
         String password = request.getParameter("password");
 
