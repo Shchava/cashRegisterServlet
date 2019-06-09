@@ -5,6 +5,7 @@ import ua.training.cashregister.dao.mapper.UserMapper;
 import ua.training.cashregister.entity.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public class JDBCUserDao implements UserDao {
     @Override
     public boolean create(User entity) {
         boolean created = false;
-        String query = "INSERT INTO user(username, email, password_hash, role) VALUES(?,?,?,?)";
+        final String query = "INSERT INTO user(username, email, password_hash, role) VALUES(?,?,?,?)";
         try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1,entity.getUsername());
             statement.setString(2,entity.getEmail());
@@ -38,7 +39,23 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public List<User> findAll() {
-        return  null;
+        List<User> users = new ArrayList<>();
+        UserMapper mapper = new UserMapper();
+
+        final String query = "SELECT * FROM user";
+        try (Statement st = connection.createStatement()) {
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                User user = mapper.extractFromResultSet(rs);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return users;
+        }
+
+        return users;
     }
 
     @Override
@@ -46,7 +63,7 @@ public class JDBCUserDao implements UserDao {
         User user = null;
         UserMapper mapper = new UserMapper();
 
-        String query = "SELECT * FROM user WHERE id_user = " + id +";";
+        final String query = "SELECT * FROM user WHERE id_user = " + id +";";
         try(Statement statement =  connection.createStatement()){
             ResultSet result = statement.executeQuery(query);
             if(result.next()){
@@ -61,7 +78,7 @@ public class JDBCUserDao implements UserDao {
     @Override
     public boolean update(User entity) {
         boolean created = false;
-        String query = "UPDATE user SET username = ?, email = ?, password_hash = ?, role = ? WHERE id_user = ?";
+        final String query = "UPDATE user SET username = ?, email = ?, password_hash = ?, role = ? WHERE id_user = ?";
         try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1,entity.getUsername());
             statement.setString(2,entity.getEmail());
@@ -80,7 +97,7 @@ public class JDBCUserDao implements UserDao {
     @Override
     public boolean delete(long id) {
         boolean affected = false;
-        String query = "DELETE FROM user WHERE id_user = " + id + ";";
+        final String query = "DELETE FROM user WHERE id_user = " + id + ";";
         try(Statement statement =  connection.createStatement()){
             statement.execute(query);
             affected = true;
