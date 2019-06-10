@@ -1,5 +1,7 @@
 package ua.training.cashregister.entity;
 
+import java.util.Objects;
+
 public class GoodsByWeight extends Goods {
     private int weight_price;
 
@@ -25,5 +27,20 @@ public class GoodsByWeight extends Goods {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GoodsByWeight)) return false;
+        if (!super.equals(o)) return false;
+        GoodsByWeight that = (GoodsByWeight) o;
+        return weight_price == that.weight_price &&
+                weight == that.weight;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), weight_price, weight);
     }
 }

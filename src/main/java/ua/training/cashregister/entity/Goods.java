@@ -1,5 +1,7 @@
 package ua.training.cashregister.entity;
 
+import java.util.Objects;
+
 public abstract class Goods {
     private long id_goods;
     private String name;
@@ -24,5 +26,17 @@ public abstract class Goods {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Goods)) return false;
+        Goods goods = (Goods) o;
+        return id_goods == goods.id_goods &&
+                name.equals(goods.name);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_goods, name);
+    }
 }
