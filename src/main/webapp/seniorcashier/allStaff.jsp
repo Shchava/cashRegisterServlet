@@ -8,16 +8,18 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@page isELIgnored="false"%>
 
 <html>
 <head>
     <title>All staff</title>
 </head>
 <body>
-<h1>     <c:out value="${requestScope.users}"> value</c:out>  </h1>
-${requestScope.values()}
-${requestScope.ts}
+
+<c:forEach items="${staff}" var="user">
+    <c:out value="${user.username}"/><br />
+</c:forEach>
+
 <table>
     <tr>
         <th>ID</th>
