@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet("/login/")
 public class Login extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserAuthentification auth = new UserAuthentification();
         String login = request.getParameter("username");
         String password = request.getParameter("password");
