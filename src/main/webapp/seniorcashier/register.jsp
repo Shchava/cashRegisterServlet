@@ -26,12 +26,11 @@
         <input type = submit>
     </form>
 
-    <c:if test="${requestScope.registred eq true}">
-        <h1>gdgsdg</h1>
-    </c:if>
+
+
     
     <c:if test="${not empty requestScope.registered}">
-        <h1>registerd : ${requestScope.registeed}</h1>
+        registered : <c:out value="${requestScope.registered}"/>
         </c:if>
 
 
