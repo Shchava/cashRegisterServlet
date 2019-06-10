@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface ObjectMapper<T> {
 
-    T extractFromResultSet(ResultSet rs) throws SQLException;
+    public T extractFromResultSet(ResultSet rs) throws SQLException;
 }

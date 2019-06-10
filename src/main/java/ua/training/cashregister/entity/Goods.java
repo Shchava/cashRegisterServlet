@@ -3,19 +3,19 @@ package ua.training.cashregister.entity;
 import java.util.Objects;
 
 public abstract class Goods {
-    private long id_goods;
+    private long id;
     private String name;
 
     public Goods(String name) {
         this.name = name;
     }
 
-    public long getId_goods() {
-        return id_goods;
+    public long getId() {
+        return id;
     }
 
-    public void setId_goods(long id_goods) {
-        this.id_goods = id_goods;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,12 +31,12 @@ public abstract class Goods {
         if (this == o) return true;
         if (!(o instanceof Goods)) return false;
         Goods goods = (Goods) o;
-        return id_goods == goods.id_goods &&
+        return id == goods.id &&
                 name.equals(goods.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_goods, name);
+        return Objects.hash(id, name);
     }
 }
