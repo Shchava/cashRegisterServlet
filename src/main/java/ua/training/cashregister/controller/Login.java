@@ -1,9 +1,7 @@
 package ua.training.cashregister.controller;
 
-import ua.training.cashregister.entity.User;
 import ua.training.cashregister.service.user.UserAuthentification;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +17,13 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
 
 
-        if(auth.checkAuthority(login,password)) {
-            User user = auth.findUser(login).get();
-            request.getSession().setAttribute("login", login);
-            request.getSession().setAttribute("Role", user.getRole());
+        if (auth.checkAuthority(login, password)) {
+            auth.findUser(login).ifPresent(user -> {
+                request.getSession().setAttribute("login", login);
+                request.getSession().setAttribute("Role", user.getRole());
+            });
             response.sendRedirect("/hello");
-        }else{
+        } else {
             response.sendRedirect("/login");
         }
     }
