@@ -9,6 +9,7 @@
 <a href="seniorcashier/register.jsp"> register </a><br>
 <a href="seniorcashier/getStaff/"> find users </a><br>
 <a href="merchandiser/showWarehouse/"> warehouse </a><br>
-<a href="window.jsp"> window </a>
+<a href="window.jsp"> window </a><br>
+<a href="cashier/CreateReceipt.jsp"> add Receipt </a>
 </body>
 </html>

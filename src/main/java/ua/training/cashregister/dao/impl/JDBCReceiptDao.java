@@ -79,6 +79,19 @@ public class JDBCReceiptDao implements ReceiptDao {
         Receipt found = selectFromQuery(query);
         return Optional.ofNullable(found);
     }
+
+    @Override
+    public boolean createReceiptEntry(ReceiptEntry entry) {
+        boolean created = false;
+        final String query = "INSERT INTO receipt_entry (id_receipt,id_goods,amount,price) VALUES(?,?,?,?)";
+        try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
+            created = createEntry(entry,statement);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return created;
+    }
+
     @Override
     public boolean update(Receipt entity) {
         return false;
@@ -164,13 +177,13 @@ public class JDBCReceiptDao implements ReceiptDao {
     }
 
 
-    private void createEntry(ReceiptEntry entry, PreparedStatement statement) throws SQLException {
+    private boolean createEntry(ReceiptEntry entry, PreparedStatement statement) throws SQLException {
         statement.setLong(1,entry.getReceipt().getId_receipt());
         statement.setLong(2,entry.getGoods().getId());
         statement.setInt(3,entry.getAmount());
         statement.setInt(4,entry.getPrice());
 
-        statement.execute();
+        return statement.execute();
     }
 
 
