@@ -4,6 +4,7 @@ import ua.training.cashregister.entity.Receipt;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class ReceiptMapper implements ObjectMapper<Receipt> {
@@ -13,7 +14,10 @@ public class ReceiptMapper implements ObjectMapper<Receipt> {
         UserMapper cashier = new UserMapper();
         Receipt receipt = new Receipt();
         receipt.setId_receipt(rs.getInt("id_receipt"));
-        receipt.setCreated (LocalDateTime.from(rs.getTimestamp ("created").toLocalDateTime()));
+        Timestamp stamp = rs.getTimestamp ("created");
+        if(stamp != null) {
+            receipt.setCreated(LocalDateTime.from(stamp.toLocalDateTime()));
+        }
         receipt.setCashier(cashier.extractFromResultSet(rs));
         return receipt;
     }

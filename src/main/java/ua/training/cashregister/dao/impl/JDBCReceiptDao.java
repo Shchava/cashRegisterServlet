@@ -22,11 +22,14 @@ public class JDBCReceiptDao implements ReceiptDao {
     @Override
     public boolean create(Receipt entity) {
         boolean created = false;
-        final String query = "INSERT INTO receipt(created,cashier,senior_cashier) VALUES(?,?,?)";
+        final String query = "INSERT INTO receipt(created,cashier) VALUES(?,?)";
         try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
-            statement.setTimestamp(1,Timestamp.valueOf(entity.getCreated()));
+            if(entity.getCreated() != null) {
+                statement.setTimestamp(1, Timestamp.valueOf(entity.getCreated()));
+            }else{
+                statement.setTimestamp(1, null);
+            }
             statement.setLong(2,entity.getCashier().getId());
-            statement.setLong(3,entity.getSeniorCashier().getId());
 
             int affected = statement.executeUpdate();
             if(affected == 1){
@@ -118,11 +121,12 @@ public class JDBCReceiptDao implements ReceiptDao {
         final String query = "SELECT amount,price,receipt_entry.id_goods,name,apiece_price,count,type " +
                 "FROM receipt_entry " +
                 "LEFT JOIN goods ON (receipt_entry.id_goods = goods.id_goods)" +
-                " where receipt_entry.id_receipt = ?;";
+                " where receipt_entry.id_receipt = ?";
 
         try (PreparedStatement st = connection.prepareStatement(query)) {
             st.setLong(1, receipt.getId_receipt());
-            ResultSet rs = st.executeQuery(query);
+
+            ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 ReceiptEntry entry = mapper.extractFromResultSet(rs);
