@@ -25,8 +25,7 @@ public class ReceiptService {
     public void updateReceiptEntry(ReceiptEntry entry){
         GoodsService goodsService = new GoodsService();
         try(ReceiptDao dao = daoFactory.createReceiptDao()) {
-            goodsService.removeFromWarehouse(entry.getGoods(),entry.getAmount());
-            dao.createReceiptEntry(entry);
+            dao.updateReceiptEntry(entry);
         }
     }
 
