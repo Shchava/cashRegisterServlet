@@ -68,9 +68,6 @@
             </div>
         </form>
     </c:if>
-    <%
-        request.getRequestDispatcher()
-    %>
 
 </body>
 </html>
