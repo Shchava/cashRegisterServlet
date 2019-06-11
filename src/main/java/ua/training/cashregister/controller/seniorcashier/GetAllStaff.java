@@ -1,4 +1,4 @@
-package ua.training.cashregister.controller;
+package ua.training.cashregister.controller.seniorcashier;
 
 import ua.training.cashregister.entity.User;
 import ua.training.cashregister.service.user.UserServices;

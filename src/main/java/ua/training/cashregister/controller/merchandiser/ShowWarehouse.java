@@ -1,4 +1,4 @@
-package ua.training.cashregister.controller;
+package ua.training.cashregister.controller.merchandiser;
 
 import ua.training.cashregister.entity.Goods;
 import ua.training.cashregister.service.goods.GoodsService;

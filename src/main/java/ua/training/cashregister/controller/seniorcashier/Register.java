@@ -1,4 +1,4 @@
-package ua.training.cashregister.controller;
+package ua.training.cashregister.controller.seniorcashier;
 
 import ua.training.cashregister.entity.enums.Roles;
 import ua.training.cashregister.entity.User;
