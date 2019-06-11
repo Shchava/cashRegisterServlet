@@ -18,7 +18,6 @@ public class ReceiptService {
     public void saveReceiptEntry(ReceiptEntry entry){
         GoodsService goodsService = new GoodsService();
         try(ReceiptDao dao = daoFactory.createReceiptDao()) {
-            goodsService.removeFromWarehouse(entry.getGoods(),entry.getAmount());
             dao.createReceiptEntry(entry);
         }
     }
@@ -51,17 +50,26 @@ public class ReceiptService {
     }
 
     public void addReceiptEntry(Receipt receipt,ReceiptEntry receiptEntry){
+        GoodsService goodsService = new GoodsService();
+
         Optional<ReceiptEntry> existing =  receipt.getEntries()
                                                     .stream()
                                                     .filter (en->en.getGoods().getId()==receiptEntry.getGoods().getId())
                                                     .findFirst();
 
-        existing.ifPresent(ex->{ex.setAmount(ex.getAmount() + receiptEntry.getAmount());});
+        existing.ifPresent(ex->{ goodsService.removeFromWarehouse(ex.getGoods(),receiptEntry.getAmount() - ex.getAmount());
+                                    ex.setAmount(ex.getAmount() + receiptEntry.getAmount());});
 
         ReceiptEntry adding = existing.orElseGet(()->{receipt.getEntries().add(receiptEntry);
+                                                        goodsService.removeFromWarehouse(receiptEntry.getGoods(),receiptEntry.getAmount());
                                                         return receiptEntry;});
         calculateAndSetPrice(adding);
-        saveReceiptEntry(adding);
+
+        if(existing.isPresent()) {
+            updateReceiptEntry(adding);
+        }else{
+            saveReceiptEntry(adding);
+        }
     }
 
     public void calculateAndSetPrice(ReceiptEntry entry){
