@@ -11,6 +11,10 @@ import java.util.Optional;
 public class GoodsService {
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
+    public void removeFromWarehouse(Goods goods,int amount){
+        //TODO implement
+    };
+
     public boolean addGoods(Goods goods){
         try(GoodsDao dao = daoFactory.createGoodsDao()){
             return dao.create(goods);

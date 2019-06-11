@@ -3,7 +3,9 @@ package ua.training.cashregister.service.receipt;
 import ua.training.cashregister.dao.DaoFactory;
 import ua.training.cashregister.dao.ReceiptDao;
 import ua.training.cashregister.entity.Receipt;
+import ua.training.cashregister.entity.ReceiptEntry;
 import ua.training.cashregister.entity.User;
+import ua.training.cashregister.service.goods.GoodsService;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,14 @@ public class ReceiptService {
                 dao.create(receipt);
         }
         return receipt;
+    }
+
+    public void addReceiptEntry(ReceiptEntry entry){
+        GoodsService goodsService = new GoodsService();
+        try(ReceiptDao dao = daoFactory.createReceiptDao()) {
+            goodsService.removeFromWarehouse(entry.getGoods(),entry.getAmount());
+            dao.createReceiptEntry(entry);
+        }
     }
 
     public Receipt open(User cashier){
