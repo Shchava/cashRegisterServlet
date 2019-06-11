@@ -1,10 +1,14 @@
 package ua.training.cashregister.dao.impl;
 
 import ua.training.cashregister.dao.ReceiptDao;
+import ua.training.cashregister.dao.mapper.ReceiptEntryMapper;
+import ua.training.cashregister.dao.mapper.ReceiptMapper;
+import ua.training.cashregister.entity.Goods;
 import ua.training.cashregister.entity.Receipt;
 import ua.training.cashregister.entity.ReceiptEntry;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,12 +41,45 @@ public class JDBCReceiptDao implements ReceiptDao {
 
     @Override
     public List<Receipt> findAll() {
-        return null;
+        List<Receipt> receiptList = new ArrayList<>();
+        ReceiptMapper mapper = new ReceiptMapper();
+
+        final String query = "SELECT * FROM receipt " +
+                             "LEFT JOIN user ON(receipt.cashier = user.id_user);";
+        try (Statement st = connection.createStatement()) {
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                Receipt receipt = mapper.extractFromResultSet(rs);
+                receipt.setEntries(findEntriesFromReceipt(receipt));
+                receiptList.add(receipt);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return receiptList;
+        }
+
+        return receiptList;
     }
 
     @Override
     public Optional<Receipt> findById(long id) {
-        return Optional.empty();
+        Receipt found = null;
+        ReceiptMapper mapper = new ReceiptMapper();
+
+        final String query = "SELECT * FROM receipt " +
+                             "LEFT JOIN user ON(receipt.cashier = user.id_user) " +
+                             "WHERE receipt.id_receipt = " + id +";";
+        try(Statement statement =  connection.createStatement()){
+            ResultSet result = statement.executeQuery(query);
+            if(result.next()){
+                found = mapper.extractFromResultSet(result);
+                found.setEntries(findEntriesFromReceipt(found));
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return Optional.ofNullable(found);
     }
 
     @Override
@@ -60,8 +97,32 @@ public class JDBCReceiptDao implements ReceiptDao {
 
     }
 
+    private List<ReceiptEntry> findEntriesFromReceipt(Receipt receipt) {
+        List<ReceiptEntry> entryList = new ArrayList<>();
+        ReceiptEntryMapper mapper = new ReceiptEntryMapper();
+
+        final String query = "SELECT amount,price,receipt_entry.id_goods,name,apiece_price,count,type " +
+                "FROM receipt_entry " +
+                "LEFT JOIN goods ON (receipt_entry.id_goods = goods.id_goods)" +
+                " where receipt_entry.id_receipt = ?;";
+
+        try (PreparedStatement st = connection.prepareStatement(query)) {
+            st.setLong(1, receipt.getId_receipt());
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                ReceiptEntry entry = mapper.extractFromResultSet(rs);
+                entry.setReceipt(receipt);
+                entryList.add(entry);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entryList;
+    }
+
     private void createEntries(List<ReceiptEntry> entries) throws SQLException {
-        final String query = "INSERT INTO receipt_entry (id_receipt,id_goods,amount,price) VALUES(?,?,? ?)";
+        final String query = "INSERT INTO receipt_entry (id_receipt,id_goods,amount,price) VALUES(?,?,?,?)";
         try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             for(ReceiptEntry entry : entries) {
                 createEntry(entry,statement);
