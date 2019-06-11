@@ -9,6 +9,9 @@ public class ReceiptEntry{
     private int amount;
     private int price;
 
+    public ReceiptEntry() {
+    }
+
     public ReceiptEntry(Goods goods, Receipt receipt, int amount, int price) {
         this.goods = goods;
         this.receipt = receipt;
