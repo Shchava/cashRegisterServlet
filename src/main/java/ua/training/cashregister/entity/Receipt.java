@@ -12,6 +12,9 @@ public class Receipt {
     private User seniorCashier;
     private List<ReceiptEntry> entries;
 
+    public Receipt() {
+    }
+
     public Receipt(LocalDateTime created, User cashier, User seniorCashier) {
         this.created = created;
         this.cashier = cashier;
