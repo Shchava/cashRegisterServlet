@@ -97,7 +97,41 @@ public class JDBCReceiptDao implements ReceiptDao {
 
     @Override
     public boolean update(Receipt entity) {
-        return false;
+        boolean created = false;
+        final String query = "UPDATE receipt SET created = ?, cashier = ? WHERE id_receipt = ?";
+        try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
+            if(entity.getCreated() != null) {
+                statement.setTimestamp(1, Timestamp.valueOf(entity.getCreated()));
+            }else{
+                statement.setTimestamp(1,null);
+            }
+            statement.setLong(2,entity.getCashier().getId());
+            statement.setLong(3,entity.getId_receipt());
+
+            int affected = statement.executeUpdate();
+            created = affected == 1;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return created;
+    }
+
+    @Override
+    public boolean updateReceiptEntry(ReceiptEntry entry){
+        boolean created = false;
+        final String query = "UPDATE receipt_entry SET amount = ?, price = ? WHERE id_receipt = ? AND id_goods = ?";
+        try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
+            statement.setInt(1,entry.getAmount());
+            statement.setInt(2,entry.getPrice());
+            statement.setLong(3,entry.getReceipt().getId_receipt());
+            statement.setLong(4,entry.getGoods().getId());
+
+            int affected = statement.executeUpdate();
+            created = affected == 1;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return created;
     }
 
     @Override
