@@ -6,6 +6,12 @@ public abstract class Goods {
     private long id;
     private String name;
 
+    public abstract int getAmount();
+
+    public abstract int getPrice();
+
+    public abstract int getSum();
+
     public Goods(String name) {
         this.name = name;
     }

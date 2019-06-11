@@ -13,6 +13,21 @@ public class GoodsApiece extends Goods {
         this.count = count;
     }
 
+    @Override
+    public int getAmount() {
+        return count;
+    }
+
+    @Override
+    public int getPrice() {
+        return apiece_price;
+    }
+
+    @Override
+    public int getSum() {
+        return count * apiece_price;
+    }
+
     public int getApiece_price() {
         return apiece_price;
     }
@@ -28,6 +43,8 @@ public class GoodsApiece extends Goods {
     public void setCount(int count) {
         this.count = count;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

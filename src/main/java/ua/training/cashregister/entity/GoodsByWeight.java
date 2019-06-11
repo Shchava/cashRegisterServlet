@@ -13,6 +13,21 @@ public class GoodsByWeight extends Goods {
         this.weight = weight;
     }
 
+    @Override
+    public int getAmount() {
+        return weight;
+    }
+
+    @Override
+    public int getPrice() {
+        return weight_price;
+    }
+
+    @Override
+    public int getSum() {
+        return weight*weight_price;
+    }
+
     public int getWeight_price() {
         return weight_price;
     }
@@ -28,6 +43,8 @@ public class GoodsByWeight extends Goods {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

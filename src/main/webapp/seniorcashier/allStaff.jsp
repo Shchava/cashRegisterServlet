@@ -13,6 +13,7 @@
 <html>
 <head>
     <title>All staff</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
 <body>
 
@@ -20,7 +21,7 @@
     <c:out value="${user.username}"/><br />
 </c:forEach>
 
-<table>
+<table class="table">
     <tr>
         <th>ID</th>
         <th>username</th>
