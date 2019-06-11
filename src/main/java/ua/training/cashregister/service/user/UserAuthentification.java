@@ -17,12 +17,15 @@ public class UserAuthentification {
     private static final String key = "8F78D28C76F928F7B80FB099983282A5";
     private static final String initVector = "CF65160542FDBAF6";
 
+    public Optional<User> findUser(long id){
+        try(UserDao dao =  daoFactory.createUserDao()) {
+            return dao.findById(id);
+        }
+    }
 
     public Optional<User> findUser(String username){
         try(UserDao dao =  daoFactory.createUserDao()) {
-            Optional<User> found = dao.findByUsername(username);
-            dao.close();
-            return found;
+            return dao.findByUsername(username);
         }
     }
 

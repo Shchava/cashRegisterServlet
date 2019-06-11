@@ -23,6 +23,14 @@ public class ReceiptService {
         }
     }
 
+    public void updateReceiptEntry(ReceiptEntry entry){
+        GoodsService goodsService = new GoodsService();
+        try(ReceiptDao dao = daoFactory.createReceiptDao()) {
+            goodsService.removeFromWarehouse(entry.getGoods(),entry.getAmount());
+            dao.createReceiptEntry(entry);
+        }
+    }
+
     public Receipt getNotClosedOrOpen(User cashier){
         Optional<Receipt> existing = findOpenReceipt(cashier.getId());
         return existing.orElseGet(()->{

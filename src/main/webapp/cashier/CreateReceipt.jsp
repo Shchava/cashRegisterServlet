@@ -69,5 +69,9 @@
         </form>
     </c:if>
 
+    <form method="post" action="/cashier/createreceipt/create">
+        <input type="button" value="Close receipt">
+    </form>
+
 </body>
 </html>
