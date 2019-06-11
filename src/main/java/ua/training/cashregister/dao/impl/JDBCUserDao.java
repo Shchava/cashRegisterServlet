@@ -138,7 +138,6 @@ public class JDBCUserDao implements UserDao {
         ResultSet generatedKeys = statement.getGeneratedKeys();
         if (generatedKeys.next()) {
             user.setId(generatedKeys.getLong(1));
-            System.out.println();
         }
     }
 

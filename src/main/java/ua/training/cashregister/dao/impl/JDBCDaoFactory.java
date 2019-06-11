@@ -2,7 +2,9 @@ package ua.training.cashregister.dao.impl;
 
 import ua.training.cashregister.dao.DaoFactory;
 import ua.training.cashregister.dao.GoodsDao;
+import ua.training.cashregister.dao.ReceiptDao;
 import ua.training.cashregister.dao.UserDao;
+import ua.training.cashregister.entity.Receipt;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -20,6 +22,11 @@ public class JDBCDaoFactory extends DaoFactory {
     @Override
     public GoodsDao createGoodsDao() {
         return new JDBCGoodsDao(getConnection());
+    }
+
+    @Override
+    public ReceiptDao createReceiptDao() {
+        return new JDBCReceiptDao(getConnection());
     }
 
     private Connection getConnection(){
