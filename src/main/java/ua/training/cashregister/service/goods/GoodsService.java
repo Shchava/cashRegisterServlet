@@ -10,12 +10,10 @@ import java.util.List;
 public class GoodsService {
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public Goods createGoodsApiece(String name, int apiece_price, int count) {
-        return new GoodsApiece(name,apiece_price,count);
-    }
-
-    public Goods createGoodsByWeight(String name, int weight_price, int weight) {
-        return new GoodsApiece(name,weight_price,weight);
+    public boolean addGoods(Goods goods){
+        try(GoodsDao dao = daoFactory.createGoodsDao()){
+            return dao.create(goods);
+        }
     }
 
     public List<Goods> getAllGoods(){

@@ -4,8 +4,7 @@ import ua.training.cashregister.dao.GoodsDao;
 import ua.training.cashregister.dao.mapper.GoodsMapper;
 import ua.training.cashregister.entity.Goods;
 import ua.training.cashregister.entity.GoodsApiece;
-import ua.training.cashregister.entity.GoodsTypes;
-import ua.training.cashregister.entity.User;
+import ua.training.cashregister.entity.enums.GoodsTypes;
 
 import java.sql.*;
 import java.util.ArrayList;

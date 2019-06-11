@@ -1,6 +1,6 @@
 package ua.training.cashregister.dao.mapper;
 
-import ua.training.cashregister.entity.Roles;
+import ua.training.cashregister.entity.enums.Roles;
 import ua.training.cashregister.entity.User;
 
 import java.sql.ResultSet;

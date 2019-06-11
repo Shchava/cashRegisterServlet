@@ -19,10 +19,11 @@ public class UserAuthentification {
 
 
     public Optional<User> findUser(String username){
-        UserDao dao =  daoFactory.createUserDao();
-        Optional<User> found =  dao.findByUsername(username);
-        dao.close();
-        return found;
+        try(UserDao dao =  daoFactory.createUserDao()) {
+            Optional<User> found = dao.findByUsername(username);
+            dao.close();
+            return found;
+        }
     }
 
     public boolean checkAuthority(String username,String password){

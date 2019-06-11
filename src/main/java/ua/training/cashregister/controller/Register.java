@@ -1,6 +1,6 @@
 package ua.training.cashregister.controller;
 
-import ua.training.cashregister.entity.Roles;
+import ua.training.cashregister.entity.enums.Roles;
 import ua.training.cashregister.entity.User;
 import ua.training.cashregister.service.user.UserRegistration;
 

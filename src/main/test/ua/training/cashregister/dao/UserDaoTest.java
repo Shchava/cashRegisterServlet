@@ -1,19 +1,16 @@
 package ua.training.cashregister.dao;
 
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.jupiter.api.*;
 import org.junit.runners.MethodSorters;
-import ua.training.cashregister.entity.Roles;
+import ua.training.cashregister.entity.enums.Roles;
 import ua.training.cashregister.entity.User;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
     private String name = "test";
@@ -71,12 +68,13 @@ public class UserDaoTest {
         assertFalse(dao.findById(id).isPresent());
     }
 
-    @Test
-    @Order(6)
-    public void xtestClose(){
-        User user = new User(newName,email,password,role);
-        dao.close();
-        assertFalse(dao.create(user));
-        assertFalse(dao.delete(user.getId()));
-    }
+
+
+
+//    @Test
+//    @Order(5)
+//    public void test(){
+//        System.out.println("g");
+//    }
+
 }

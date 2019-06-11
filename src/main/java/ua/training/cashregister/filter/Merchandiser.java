@@ -11,8 +11,8 @@ import java.io.IOException;
 
 import static java.util.Objects.nonNull;
 
-@WebFilter("/seniorcashier/*")
-public class SeniorCashierFilter implements Filter {
+@WebFilter("/merchandiser/*")
+public class Merchandiser  implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -27,7 +27,7 @@ public class SeniorCashierFilter implements Filter {
         if (nonNull(session)
                 && nonNull(session.getAttribute("login"))
                 && nonNull(session.getAttribute("Role"))
-                && session.getAttribute("Role") == Roles.SENIOR_CASHIER) {
+                && session.getAttribute("Role") == Roles.MERCHANDISER) {
 
             filterChain.doFilter(servletRequest, servletResponse);
         } else {

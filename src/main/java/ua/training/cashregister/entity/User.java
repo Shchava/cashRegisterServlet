@@ -1,5 +1,7 @@
 package ua.training.cashregister.entity;
 
+import ua.training.cashregister.entity.enums.Roles;
+
 import java.util.Objects;
 
 public class User {

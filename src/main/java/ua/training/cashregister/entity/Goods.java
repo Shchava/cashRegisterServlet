@@ -1,10 +1,26 @@
 package ua.training.cashregister.entity;
 
+import ua.training.cashregister.entity.enums.GoodsTypes;
+
 import java.util.Objects;
 
 public abstract class Goods {
     private long id;
     private String name;
+
+    public static Goods createGoods(String name, GoodsTypes type, int price, int amount){
+        switch (type){
+            case APIECE:{
+                return new GoodsApiece(name,price,amount);
+            }
+            case BY_WEIGHT:{
+                return new GoodsByWeight(name,price,amount);
+            }
+            default:{
+                return null;
+            }
+        }
+    }
 
     public abstract int getAmount();
 

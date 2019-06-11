@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import ua.training.cashregister.entity.Goods;
 import ua.training.cashregister.entity.GoodsApiece;
+import ua.training.cashregister.entity.GoodsByWeight;
 import ua.training.cashregister.service.goods.GoodsService;
 
 import static org.junit.Assert.*;
@@ -23,9 +24,5 @@ public class GoodsServicesTest {
         service = new GoodsService();
     }
 
-    @Test
-    public void testCreateGoodsApiece(){
-        Goods createdGoods = service.createGoodsApiece(name1,apiece_price,count);
-        Goods testGoods = new GoodsApiece(name1,apiece_price,count);
-    }
+
 }

@@ -1,4 +1,4 @@
-package ua.training.cashregister.entity;
+package ua.training.cashregister.entity.enums;
 
 
 

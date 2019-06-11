@@ -35,7 +35,7 @@
 
     </c:forEach>
 </table>
-    <button type="button" class="btn btn-primary btn-block" onclick="window.location.href = '';">add goods</button>
+    <button type="button" class="btn btn-primary btn-block" onclick="window.location.href = '/merchandiser/addGoods.jsp';">add goods</button>
 </div>
 </body>
 </html>
