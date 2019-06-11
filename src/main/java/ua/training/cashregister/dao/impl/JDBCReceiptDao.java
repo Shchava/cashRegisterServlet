@@ -33,6 +33,7 @@ public class JDBCReceiptDao implements ReceiptDao {
                 setId(entity,statement);
                 created = true;
             }
+            createEntries(entity.getEntries());
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -46,42 +47,38 @@ public class JDBCReceiptDao implements ReceiptDao {
 
         final String query = "SELECT * FROM receipt " +
                              "LEFT JOIN user ON(receipt.cashier = user.id_user);";
-        try (Statement st = connection.createStatement()) {
-            ResultSet rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                Receipt receipt = mapper.extractFromResultSet(rs);
-                receipt.setEntries(findEntriesFromReceipt(receipt));
-                receiptList.add(receipt);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return receiptList;
-        }
-
-        return receiptList;
+        return selectAllFromQuery(receiptList,query);
     }
 
     @Override
     public Optional<Receipt> findById(long id) {
-        Receipt found = null;
-        ReceiptMapper mapper = new ReceiptMapper();
 
         final String query = "SELECT * FROM receipt " +
                              "LEFT JOIN user ON(receipt.cashier = user.id_user) " +
                              "WHERE receipt.id_receipt = " + id +";";
-        try(Statement statement =  connection.createStatement()){
-            ResultSet result = statement.executeQuery(query);
-            if(result.next()){
-                found = mapper.extractFromResultSet(result);
-                found.setEntries(findEntriesFromReceipt(found));
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
+        Receipt found = selectFromQuery(query);
         return Optional.ofNullable(found);
     }
 
+    @Override
+    public List<Receipt> findByUserId(long userId) {
+        List<Receipt> receiptList = new ArrayList<>();
+
+        final String query = "SELECT * FROM receipt " +
+                "LEFT JOIN user ON(receipt.cashier = user.id_user) " +
+                "WHERE user.id_user = " + userId + ";";
+        return selectAllFromQuery(receiptList,query);
+    }
+
+    @Override
+    public Optional<Receipt> findNotClosedByUserId(long userId) {
+        final String query = "SELECT * FROM receipt " +
+                "LEFT JOIN user ON(receipt.cashier = user.id_user) " +
+                "WHERE user.id_user = " + userId + " AND receipt.created IS NULL";
+
+        Receipt found = selectFromQuery(query);
+        return Optional.ofNullable(found);
+    }
     @Override
     public boolean update(Receipt entity) {
         return false;
@@ -94,7 +91,11 @@ public class JDBCReceiptDao implements ReceiptDao {
 
     @Override
     public void close() {
-
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private List<ReceiptEntry> findEntriesFromReceipt(Receipt receipt) {
@@ -119,6 +120,38 @@ public class JDBCReceiptDao implements ReceiptDao {
             e.printStackTrace();
         }
         return entryList;
+    }
+
+    private Receipt selectFromQuery(String query){
+        ReceiptMapper mapper = new ReceiptMapper();
+        Receipt found = null;
+
+        try(Statement statement =  connection.createStatement()){
+            ResultSet result = statement.executeQuery(query);
+            if(result.next()){
+                found = mapper.extractFromResultSet(result);
+                found.setEntries(findEntriesFromReceipt(found));
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return found;
+    }
+
+    private List<Receipt> selectAllFromQuery(List<Receipt> receiptList, String query){
+        ReceiptMapper mapper = new ReceiptMapper();
+        try (Statement st = connection.createStatement()) {
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                Receipt receipt = mapper.extractFromResultSet(rs);
+                receipt.setEntries(findEntriesFromReceipt(receipt));
+                receiptList.add(receipt);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return receiptList;
     }
 
     private void createEntries(List<ReceiptEntry> entries) throws SQLException {
@@ -147,4 +180,6 @@ public class JDBCReceiptDao implements ReceiptDao {
             receipt.setId_receipt(generatedKeys.getLong(1));
         }
     }
+
+
 }
