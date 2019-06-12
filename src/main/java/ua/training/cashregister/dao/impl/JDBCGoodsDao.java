@@ -4,6 +4,7 @@ import ua.training.cashregister.dao.GoodsDao;
 import ua.training.cashregister.dao.mapper.GoodsMapper;
 import ua.training.cashregister.entity.Goods;
 import ua.training.cashregister.entity.GoodsApiece;
+import ua.training.cashregister.entity.GoodsByWeight;
 import ua.training.cashregister.entity.enums.GoodsTypes;
 
 import java.sql.*;
@@ -23,7 +24,7 @@ public class JDBCGoodsDao implements GoodsDao {
         if(entity instanceof GoodsApiece){
             return createGoodsApiece((GoodsApiece) entity);
         }else{
-            return createGoodsByWeight();
+            return createGoodsByWeight((GoodsByWeight) entity);
         }
 
     }
@@ -135,8 +136,25 @@ public class JDBCGoodsDao implements GoodsDao {
         return created;
     }
 
-    private boolean createGoodsByWeight(){
-        return false;
+    private boolean createGoodsByWeight(GoodsByWeight goodsByWeight){
+        boolean created = false;
+        final String query = "INSERT INTO goods(name, weight,weight_price, type) VALUES(?,?,?,?)";
+        try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
+            statement.setString(1,goodsByWeight.getName());
+            statement.setInt(2,goodsByWeight.getWeight());
+            statement.setInt(3,goodsByWeight.getWeight_price());
+            statement.setString(4, GoodsTypes.BY_WEIGHT.name());
+
+
+            int affected = statement.executeUpdate();
+            if(affected == 1){
+                getId(goodsByWeight,statement);
+                created = true;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return created;
     }
 
     private void getId(Goods entity, Statement statement) throws SQLException {
