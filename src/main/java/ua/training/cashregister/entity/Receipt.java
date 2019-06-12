@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Receipt {
-    private long id_receipt;
+    private long id;
     private LocalDateTime created;
     private User cashier;
     private User seniorCashier;
@@ -29,12 +29,12 @@ public class Receipt {
         this.entries = entries;
     }
 
-    public long getId_receipt() {
-        return id_receipt;
+    public long getId() {
+        return id;
     }
 
-    public void setId_receipt(long id_receipt) {
-        this.id_receipt = id_receipt;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public LocalDateTime getCreated() {
@@ -66,7 +66,7 @@ public class Receipt {
         if (this == o) return true;
         if (!(o instanceof Receipt)) return false;
         Receipt receipt = (Receipt) o;
-        return id_receipt == receipt.id_receipt &&
+        return id == receipt.id &&
                 Objects.equals(created, receipt.created) &&
                 Objects.equals(cashier, receipt.cashier) &&
                 Objects.equals(seniorCashier, receipt.seniorCashier);
@@ -74,6 +74,6 @@ public class Receipt {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_receipt, created, cashier, seniorCashier);
+        return Objects.hash(id, created, cashier, seniorCashier);
     }
 }

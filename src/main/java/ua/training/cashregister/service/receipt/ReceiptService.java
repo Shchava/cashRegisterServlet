@@ -1,6 +1,5 @@
 package ua.training.cashregister.service.receipt;
 
-import com.sun.istack.internal.NotNull;
 import ua.training.cashregister.dao.DaoFactory;
 import ua.training.cashregister.dao.ReceiptDao;
 import ua.training.cashregister.entity.Receipt;
@@ -38,7 +37,7 @@ public class ReceiptService {
 
     public void deleteReceipt(Receipt receipt){
         try(ReceiptDao dao = daoFactory.createReceiptDao()){
-            dao.delete(receipt.getId_receipt());
+            dao.delete(receipt.getId());
         }
     }
 

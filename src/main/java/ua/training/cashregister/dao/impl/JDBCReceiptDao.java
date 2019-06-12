@@ -3,7 +3,6 @@ package ua.training.cashregister.dao.impl;
 import ua.training.cashregister.dao.ReceiptDao;
 import ua.training.cashregister.dao.mapper.ReceiptEntryMapper;
 import ua.training.cashregister.dao.mapper.ReceiptMapper;
-import ua.training.cashregister.entity.Goods;
 import ua.training.cashregister.entity.Receipt;
 import ua.training.cashregister.entity.ReceiptEntry;
 
@@ -106,7 +105,7 @@ public class JDBCReceiptDao implements ReceiptDao {
                 statement.setTimestamp(1,null);
             }
             statement.setLong(2,entity.getCashier().getId());
-            statement.setLong(3,entity.getId_receipt());
+            statement.setLong(3,entity.getId());
 
             int affected = statement.executeUpdate();
             created = affected == 1;
@@ -123,7 +122,7 @@ public class JDBCReceiptDao implements ReceiptDao {
         try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             statement.setInt(1,entry.getAmount());
             statement.setInt(2,entry.getPrice());
-            statement.setLong(3,entry.getReceipt().getId_receipt());
+            statement.setLong(3,entry.getReceipt().getId());
             statement.setLong(4,entry.getGoods().getId());
 
             int affected = statement.executeUpdate();
@@ -166,7 +165,7 @@ public class JDBCReceiptDao implements ReceiptDao {
                 " where receipt_entry.id_receipt = ?";
 
         try (PreparedStatement st = connection.prepareStatement(query)) {
-            st.setLong(1, receipt.getId_receipt());
+            st.setLong(1, receipt.getId());
 
             ResultSet rs = st.executeQuery();
 
@@ -224,7 +223,7 @@ public class JDBCReceiptDao implements ReceiptDao {
 
 
     private boolean createEntry(ReceiptEntry entry, PreparedStatement statement) throws SQLException {
-        statement.setLong(1,entry.getReceipt().getId_receipt());
+        statement.setLong(1,entry.getReceipt().getId());
         statement.setLong(2,entry.getGoods().getId());
         statement.setInt(3,entry.getAmount());
         statement.setInt(4,entry.getPrice());
@@ -236,7 +235,7 @@ public class JDBCReceiptDao implements ReceiptDao {
     private void setId(Receipt receipt, Statement statement) throws SQLException {
         ResultSet generatedKeys = statement.getGeneratedKeys();
         if (generatedKeys.next()) {
-            receipt.setId_receipt(generatedKeys.getLong(1));
+            receipt.setId(generatedKeys.getLong(1));
         }
     }
 

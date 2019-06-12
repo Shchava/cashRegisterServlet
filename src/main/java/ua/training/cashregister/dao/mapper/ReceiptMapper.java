@@ -13,7 +13,7 @@ public class ReceiptMapper implements ObjectMapper<Receipt> {
     public Receipt extractFromResultSet(ResultSet rs) throws SQLException {
         UserMapper cashier = new UserMapper();
         Receipt receipt = new Receipt();
-        receipt.setId_receipt(rs.getInt("id_receipt"));
+        receipt.setId(rs.getInt("id_receipt"));
         Timestamp stamp = rs.getTimestamp ("created");
         if(stamp != null) {
             receipt.setCreated(LocalDateTime.from(stamp.toLocalDateTime()));
