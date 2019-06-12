@@ -27,7 +27,8 @@ public class CashierFilter implements Filter {
         if (nonNull(session)
                 && nonNull(session.getAttribute("login"))
                 && nonNull(session.getAttribute("Role"))
-                && session.getAttribute("Role") == Roles.CASHIER) {
+                && (session.getAttribute("Role") == Roles.CASHIER
+                || session.getAttribute("Role") == Roles.SENIOR_CASHIER)){
 
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
