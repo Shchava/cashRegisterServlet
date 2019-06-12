@@ -36,7 +36,7 @@
     </table>
     <div style="align-content: baseline; align-self: baseline;  position: relative; bottom: 0; ">
     <c:if test="${empty requestScope.found}">
-        <form method="get" action="/cashier/createreceipt/">
+        <form method="get" action="/cashier/api/findgoods">
             <div class="form-group">
                 <input type="text" name="id" class="form-control" placeholder="ID" value="" />
             </div>
@@ -50,7 +50,7 @@
     </c:if>
 
     <c:if test="${not empty requestScope.found}">
-        <form method="post" action="/cashier/createreceipt/">
+        <form method="post" action="/cashier/api/addgoods">
             <table  class = "table">
                 <tr>
                     <th><c:out value="${requestScope.found.id}"/></th>
@@ -67,7 +67,7 @@
         </form>
     </c:if>
 
-    <form method="post" action="/cashier/createreceipt/create">
+    <form method="post" action="/cashier/api/closereceipt">
         <div class="form-group">
             <input type="submit" value="Close receipt" class="form-control" >
         </div>

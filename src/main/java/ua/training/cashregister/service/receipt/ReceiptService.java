@@ -55,7 +55,7 @@ public class ReceiptService {
         }
     }
 
-    public Receipt getNotClosedOrOpen(User cashier){
+    public Receipt getNotClosedOrOpenNew(User cashier){
         Optional<Receipt> existing = findOpenReceipt(cashier.getId());
         return existing.orElseGet(()->{
            try(ReceiptDao dao = daoFactory.createReceiptDao()){
