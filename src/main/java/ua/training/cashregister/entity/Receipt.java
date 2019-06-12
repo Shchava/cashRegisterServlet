@@ -21,6 +21,10 @@ public class Receipt {
         this.seniorCashier = seniorCashier;
     }
 
+    public int getSum(){
+        return entries.stream().mapToInt(ReceiptEntry::getPrice).sum();
+    }
+
     public List<ReceiptEntry> getEntries() {
         return entries;
     }
