@@ -28,6 +28,10 @@ public abstract class Goods {
 
     public abstract int getSum();
 
+    public abstract String getAmountMarking();
+
+    public abstract String getPriceMarking();
+
     public Goods(String name) {
         this.name = name;
     }

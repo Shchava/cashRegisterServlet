@@ -28,6 +28,16 @@ public class GoodsByWeight extends Goods {
         return weight*weight_price;
     }
 
+    @Override
+    public String getAmountMarking() {
+        return "g";
+    }
+
+    @Override
+    public String getPriceMarking() {
+        return "UAH/g";
+    }
+
     public int getWeight_price() {
         return weight_price;
     }

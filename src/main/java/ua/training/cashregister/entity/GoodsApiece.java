@@ -28,6 +28,16 @@ public class GoodsApiece extends Goods {
         return count * apiece_price;
     }
 
+    @Override
+    public String getAmountMarking() {
+        return "pt";
+    }
+
+    @Override
+    public String getPriceMarking() {
+        return "UAH/pt";
+    }
+
     public int getApiece_price() {
         return apiece_price;
     }

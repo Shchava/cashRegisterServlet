@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <html>
@@ -24,13 +25,14 @@
         </tr>
 
 
-        <c:forEach items="${requestScope.AddedEntries}" var="goods">
+        <c:forEach items="${requestScope.AddedEntries}" var="entry">
             <tr>
-            <th><c:out value="${goods.goods.id}"/></th>
-            <th><c:out value="${goods.goods.name}"/></th>
-            <th><c:out value="${goods.amount}"/></th>
-            <th><c:out value="${goods.goods.price}"/></th>
-            <th><c:out value="${goods.price}"/></th>
+            <th><c:out value="${entry.goods.id}"/></th>
+            <th><c:out value="${entry.goods.name}"/></th>
+            <th><c:out value="${entry.amount}"/> <c:out value="${entry.goods.amountMarking}"/></th>
+            <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${entry.goods.price/100.0}"/>
+                <c:out value="${entry.goods.priceMarking}"/></th>
+            <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${entry.price/100.0}"/> UAH</th>
             </tr>
         </c:forEach>
     </table>
@@ -59,8 +61,8 @@
                             <input type="text" name="amount" class="form-control" placeholder="Amount" value="" />
 
                     </th>
-                    <th><c:out value="${requestScope.found.price}"/></th>
-                    <th><c:out value="${requestScope.found.sum}"/></th>
+                    <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${requestScope.found.price/100.0}"/> UAH</th>
+                    <th> UAH</th>
                 </tr>
             </table>
                 <input type="submit"  value="Add goods" />

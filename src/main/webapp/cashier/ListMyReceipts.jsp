@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <html>
@@ -28,7 +29,7 @@
                 <th><c:out value="${receipt.id}"/></th>
                 <th><c:out value="${receipt.cashier.username}"/></th>
                 <th><c:out value="${receipt.created}"/></th>
-                <th><c:out value="${receipt.sum}"/></th>
+                <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${receipt.sum/100.0}"/> UAH</th>
             </tr>
         </c:forEach>
     </table>
