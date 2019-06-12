@@ -19,6 +19,7 @@ public class Login extends HttpServlet {
 
         if (auth.checkAuthority(login, password)) {
             auth.findUser(login).ifPresent(user -> {
+                request.getSession().setAttribute("userId",user.getId());
                 request.getSession().setAttribute("login", login);
                 request.getSession().setAttribute("Role", user.getRole());
             });
