@@ -159,7 +159,7 @@ public class JDBCReceiptDao implements ReceiptDao {
         List<ReceiptEntry> entryList = new ArrayList<>();
         ReceiptEntryMapper mapper = new ReceiptEntryMapper();
 
-        final String query = "SELECT amount,price,receipt_entry.id_goods,name,apiece_price,count,type " +
+        final String query = "SELECT * " +
                 "FROM receipt_entry " +
                 "LEFT JOIN goods ON (receipt_entry.id_goods = goods.id_goods)" +
                 " where receipt_entry.id_receipt = ?";

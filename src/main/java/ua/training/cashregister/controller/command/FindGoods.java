@@ -19,7 +19,7 @@ public class FindGoods implements Command {
 
         String idAtr = request.getParameter("ID");
         String nameAtr = request.getParameter("name");
-        if(idAtr != null){
+        if(idAtr != null && !idAtr.equals("")){
             long id = Long.parseLong(idAtr);
             goodsService.findGoods(id).ifPresent((g)->{
                 request.getSession().setAttribute("goodsToAdd",g);//TODO add to request
