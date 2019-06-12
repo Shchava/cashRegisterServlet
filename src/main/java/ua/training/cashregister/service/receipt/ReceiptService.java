@@ -101,7 +101,7 @@ public class ReceiptService {
         entry.setPrice(entry.getAmount() * entry.getGoods().getPrice()); //TODO make calculation dependent on goods type
     }
 
-    public List<Receipt> findReceiptByCashierId(long id){
+    public List<Receipt> findReceiptsByCashierId(long id){
         try(ReceiptDao dao = daoFactory.createReceiptDao()) {
             return dao.findByUserId(id);
         }
