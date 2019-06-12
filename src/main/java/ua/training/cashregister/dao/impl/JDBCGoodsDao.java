@@ -67,21 +67,24 @@ public class JDBCGoodsDao implements GoodsDao {
     }
 
     @Override
-    public Optional<Goods> findByName(String name){
-        Goods found = null;
+    public List<Goods> findByName(String name){
+        List<Goods> goodsList = new ArrayList<>();
         GoodsMapper mapper = new GoodsMapper();
 
-        final String query = "SELECT * FROM goods WHERE name like ?";
+        final String query = "SELECT * FROM goods WHERE name like CONCAT('%',?,'%')";
+
         try(PreparedStatement statement =  connection.prepareStatement(query)){
             statement.setString(1,name);
-            ResultSet result = statement.executeQuery(query);
-            if(result.next()){
-                found = mapper.extractFromResultSet(result);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Goods goods = mapper.extractFromResultSet(rs);
+                goodsList.add(goods);
             }
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        return Optional.ofNullable(found);
+        return goodsList;
     }
 
     @Override
