@@ -27,6 +27,12 @@ public class GoodsService {
         }
     }
 
+    public List<Goods> findGoods(String name){
+        try(GoodsDao dao = daoFactory.createGoodsDao()){
+            return dao.findByName(name);
+        }
+    }
+
     public List<Goods> getAllGoods(){
         try(GoodsDao dao = daoFactory.createGoodsDao()) {
             return dao.findAll();
