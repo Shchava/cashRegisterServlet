@@ -38,7 +38,7 @@
     <c:if test="${empty requestScope.found}">
         <form method="get" action="/cashier/api/findgoods">
             <div class="form-group">
-                <input type="text" name="id" class="form-control" placeholder="ID" value="" />
+                <input type="text" name="ID" class="form-control" placeholder="ID" value="" />
             </div>
             <div class="form-group">
                 <input type="text" name="name" class="form-control" placeholder="name" value="" />
