@@ -8,12 +8,39 @@ import ua.training.cashregister.entity.ReceiptEntry;
 import ua.training.cashregister.entity.User;
 import ua.training.cashregister.service.goods.GoodsService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class ReceiptService {
     private DaoFactory daoFactory = DaoFactory.getInstance();
+
+    public void closeLastReceipt(long cashierId){
+        Optional<Receipt> last = findOpenReceipt(cashierId);
+        last.ifPresent(this::closeReceipt);
+    };
+
+    public void closeReceipt(Receipt receipt){
+        if(receipt.getEntries().isEmpty()){
+            deleteReceipt(receipt);
+        }else{
+            receipt.setCreated(LocalDateTime.now());
+            updateReceipt(receipt);
+        }
+    }
+
+    public void updateReceipt(Receipt receipt){
+        try(ReceiptDao dao = daoFactory.createReceiptDao()){
+            dao.update(receipt);
+        }
+    }
+
+    public void deleteReceipt(Receipt receipt){
+        try(ReceiptDao dao = daoFactory.createReceiptDao()){
+            dao.delete(receipt.getId_receipt());
+        }
+    }
 
     public void saveReceiptEntry(ReceiptEntry entry){
         GoodsService goodsService = new GoodsService();
