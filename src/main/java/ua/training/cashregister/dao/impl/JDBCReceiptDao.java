@@ -136,7 +136,15 @@ public class JDBCReceiptDao implements ReceiptDao {
 
     @Override
     public boolean delete(long id) {
-        return false;
+        boolean affected = false;
+        final String query = "DELETE FROM receipt WHERE id_receipt = " + id + ";";
+        try(Statement statement =  connection.createStatement()){
+            statement.execute(query);
+            affected = true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return affected;
     }
 
     @Override
