@@ -38,4 +38,13 @@ public class GoodsService {
             return dao.findAll();
         }
     }
+
+    public Optional<Goods> findFirst(String name){
+        List<Goods> found = findGoods(name);
+        if(found.size() > 0){
+            return Optional.ofNullable(found.get(0));
+        }else{
+            return Optional.empty();
+        }
+    }
 }
