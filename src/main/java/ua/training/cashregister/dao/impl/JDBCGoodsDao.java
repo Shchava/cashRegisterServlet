@@ -67,6 +67,24 @@ public class JDBCGoodsDao implements GoodsDao {
     }
 
     @Override
+    public Optional<Goods> findByName(String name){
+        Goods found = null;
+        GoodsMapper mapper = new GoodsMapper();
+
+        final String query = "SELECT * FROM goods WHERE name like ?";
+        try(PreparedStatement statement =  connection.prepareStatement(query)){
+            statement.setString(1,name);
+            ResultSet result = statement.executeQuery(query);
+            if(result.next()){
+                found = mapper.extractFromResultSet(result);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return Optional.ofNullable(found);
+    }
+
+    @Override
     public boolean update(Goods entity) {
         return false;
     }
