@@ -34,6 +34,7 @@
             </tr>
         </c:forEach>
     </table>
+    <div style="align-content: baseline; align-self: baseline;  position: relative; bottom: 0; ">
     <c:if test="${empty requestScope.found}">
         <form method="get" action="/cashier/createreceipt/">
             <div class="form-group">
@@ -50,28 +51,27 @@
 
     <c:if test="${not empty requestScope.found}">
         <form method="post" action="/cashier/createreceipt/">
-            <table>
+            <table  class = "table">
                 <tr>
                     <th><c:out value="${requestScope.found.id}"/></th>
                     <th><c:out value="${requestScope.found.name}"/></th>
                     <th>
-                        <div class="form-group">
                             <input type="text" name="amount" class="form-control" placeholder="Amount" value="" />
-                        </div>
+
                     </th>
                     <th><c:out value="${requestScope.found.price}"/></th>
                     <th><c:out value="${requestScope.found.sum}"/></th>
                 </tr>
             </table>
-            <div class="form-group">
-                <input type="submit" class="form-control"  value="Add goods" />
-            </div>
+                <input type="submit"  value="Add goods" />
         </form>
     </c:if>
 
     <form method="post" action="/cashier/createreceipt/create">
-        <input type="button" value="Close receipt">
+        <div class="form-group">
+            <input type="submit" value="Close receipt" class="form-control" >
+        </div>
     </form>
-
+    </div>
 </body>
 </html>
