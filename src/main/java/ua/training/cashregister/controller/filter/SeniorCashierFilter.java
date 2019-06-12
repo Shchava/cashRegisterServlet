@@ -1,4 +1,4 @@
-package ua.training.cashregister.filter;
+package ua.training.cashregister.controller.filter;
 
 import ua.training.cashregister.entity.enums.Roles;
 
@@ -28,7 +28,6 @@ public class SeniorCashierFilter implements Filter {
                 && nonNull(session.getAttribute("login"))
                 && nonNull(session.getAttribute("Role"))
                 && session.getAttribute("Role") == Roles.SENIOR_CASHIER) {
-
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             response.sendRedirect("/index.jsp");

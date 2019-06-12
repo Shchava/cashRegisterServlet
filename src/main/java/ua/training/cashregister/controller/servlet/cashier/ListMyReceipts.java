@@ -1,4 +1,4 @@
-package ua.training.cashregister.controller.cashier;
+package ua.training.cashregister.controller.servlet.cashier;
 
 import ua.training.cashregister.entity.Receipt;
 import ua.training.cashregister.service.receipt.ReceiptService;

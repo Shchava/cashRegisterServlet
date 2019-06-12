@@ -1,11 +1,8 @@
-package ua.training.cashregister.controller.merchandiser;
+package ua.training.cashregister.controller.servlet.merchandiser;
 
 import ua.training.cashregister.entity.Goods;
-import ua.training.cashregister.entity.User;
 import ua.training.cashregister.entity.enums.GoodsTypes;
-import ua.training.cashregister.entity.enums.Roles;
 import ua.training.cashregister.service.goods.GoodsService;
-import ua.training.cashregister.service.user.UserRegistration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

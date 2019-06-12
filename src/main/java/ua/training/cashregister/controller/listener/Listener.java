@@ -1,4 +1,4 @@
-package ua.training.cashregister;
+package ua.training.cashregister.controller.listener;
 
 import ua.training.cashregister.dao.DaoFactory;
 

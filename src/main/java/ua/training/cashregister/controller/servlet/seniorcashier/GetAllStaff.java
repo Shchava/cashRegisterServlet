@@ -1,4 +1,4 @@
-package ua.training.cashregister.controller.seniorcashier;
+package ua.training.cashregister.controller.servlet.seniorcashier;
 
 import ua.training.cashregister.entity.User;
 import ua.training.cashregister.service.user.UserServices;

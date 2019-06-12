@@ -1,4 +1,4 @@
-package ua.training.cashregister.filter;
+package ua.training.cashregister.controller.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

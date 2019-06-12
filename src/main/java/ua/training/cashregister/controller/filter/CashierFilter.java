@@ -1,4 +1,4 @@
-package ua.training.cashregister.filter;
+package ua.training.cashregister.controller.filter;
 
 import ua.training.cashregister.entity.enums.Roles;
 
@@ -11,8 +11,8 @@ import java.io.IOException;
 
 import static java.util.Objects.nonNull;
 
-@WebFilter("/merchandiser/*")
-public class Merchandiser  implements Filter {
+@WebFilter("/cashier/*")
+public class CashierFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -21,23 +21,23 @@ public class Merchandiser  implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
-        HttpServletResponse response = (HttpServletResponse)servletResponse;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         if (nonNull(session)
                 && nonNull(session.getAttribute("login"))
                 && nonNull(session.getAttribute("Role"))
-                && session.getAttribute("Role") == Roles.MERCHANDISER) {
+                && session.getAttribute("Role") == Roles.CASHIER) {
 
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             response.sendRedirect("/index.jsp");
         }
-
     }
 
     @Override
     public void destroy() {
 
     }
+
 }

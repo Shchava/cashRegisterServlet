@@ -1,7 +1,5 @@
-package ua.training.cashregister.controller.cashier;
+package ua.training.cashregister.controller.servlet.cashier;
 
-import ua.training.cashregister.entity.Receipt;
-import ua.training.cashregister.entity.ReceiptEntry;
 import ua.training.cashregister.service.receipt.ReceiptService;
 
 import javax.servlet.ServletException;
@@ -10,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/cashier/createreceipt/create")
 public class CreateReceipt extends HttpServlet {

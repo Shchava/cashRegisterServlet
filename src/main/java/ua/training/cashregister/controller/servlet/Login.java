@@ -1,4 +1,4 @@
-package ua.training.cashregister.controller;
+package ua.training.cashregister.controller.servlet;
 
 import ua.training.cashregister.service.user.UserAuthentification;
 
