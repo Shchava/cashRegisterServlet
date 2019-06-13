@@ -82,7 +82,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item"><a class="page-link"
-                                             href="/merchandiser/api/showWarehouse?recordsPerPage=${r}&page=${page}">${r}</a>
+                                             href="/merchandiser/api/showWarehouse?recordsPerPage=${r}&page=${1}">${r}</a>
                     </li>
                 </c:otherwise>
             </c:choose>
