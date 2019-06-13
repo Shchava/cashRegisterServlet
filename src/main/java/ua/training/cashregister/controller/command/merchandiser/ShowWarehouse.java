@@ -1,39 +1,25 @@
 package ua.training.cashregister.controller.command.merchandiser;
 
 import ua.training.cashregister.controller.command.Command;
+import ua.training.cashregister.controller.command.utilities.PaginationUtility;
 import ua.training.cashregister.entity.Goods;
 import ua.training.cashregister.service.goods.GoodsService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static java.util.Objects.nonNull;
-
 public class ShowWarehouse implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         GoodsService service = new GoodsService();
 
-        int page = 1;
-        int recordsPerPage = 5;
-        if(nonNull(request.getParameter("page"))){
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-        if(nonNull(request.getParameter("recordsPerPage"))){
-            recordsPerPage = Integer.parseInt(request.getParameter("recordsPerPage"));
-        }
-
         int rows = service.getNumberOfRecords();
-        int numberOfPages = (int) Math.ceil(rows * 1.0 / recordsPerPage);
-        int offset = (page - 1)*recordsPerPage;
-
-        request.setAttribute("numberOfPages",numberOfPages);
-        request.setAttribute("page",page);
-        request.setAttribute("recordsPerPage",recordsPerPage);
+        PaginationUtility utility = new PaginationUtility();
+        utility.setAttributes(request,rows);
 
         request.setAttribute("editingId",request.getParameter("editingId"));//TODO show editing window in js
 
-        List<Goods> goods = service.getGoods(offset,recordsPerPage);
+        List<Goods> goods = service.getGoods(utility.getOffset(),utility.getRecordsPerPage());
 
         request.setAttribute("StoredGoods",goods);
 
