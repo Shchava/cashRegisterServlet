@@ -26,7 +26,6 @@ public class JDBCGoodsDao implements GoodsDao {
         }else{
             return createGoodsByWeight((GoodsByWeight) entity);
         }
-
     }
 
     @Override
@@ -96,7 +95,11 @@ public class JDBCGoodsDao implements GoodsDao {
 
     @Override
     public boolean update(Goods entity) {
-        return false;
+        if(entity instanceof GoodsApiece){
+            return updateGoodsApiece((GoodsApiece) entity);
+        }else{
+            return updateGoodsByWeight((GoodsByWeight) entity);
+        }
     }
 
     @Override
@@ -157,6 +160,40 @@ public class JDBCGoodsDao implements GoodsDao {
                 getId(goodsByWeight,statement);
                 created = true;
             }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return created;
+    }
+
+    private boolean updateGoodsApiece(GoodsApiece goodsApiece){
+        boolean created = false;
+        final String query = "UPDATE goods SET name = ?, count = ?,apiece_price = ? WHERE id_goods = ?";
+        try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
+            statement.setString(1,goodsApiece.getName());
+            statement.setInt(2,goodsApiece.getCount());
+            statement.setInt(3,goodsApiece.getApiece_price());
+            statement.setLong(4,goodsApiece.getId());
+
+            int affected = statement.executeUpdate();
+            created = affected == 1;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return created;
+    }
+
+    private boolean updateGoodsByWeight(GoodsByWeight goodsByWeight){
+        boolean created = false;
+        final String query = "UPDATE goods SET name = ?, weight = ?,weight_price = ? WHERE id_goods = ?";
+        try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
+            statement.setString(1,goodsByWeight.getName());
+            statement.setInt(2,goodsByWeight.getWeight());
+            statement.setInt(3,goodsByWeight.getWeight_price());
+            statement.setLong(4,goodsByWeight.getId());
+
+            int affected = statement.executeUpdate();
+            created = affected == 1;
         }catch (Exception ex){
             ex.printStackTrace();
         }

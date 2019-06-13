@@ -15,8 +15,8 @@ public class GoodsService {
         //TODO implement
     };
 
-    public boolean addGoods(Goods goods){
-        try(GoodsDao dao = daoFactory.createGoodsDao()){
+    public boolean addGoods(Goods goods) {
+        try (GoodsDao dao = daoFactory.createGoodsDao()) {
             return dao.create(goods);
         }
     }
@@ -59,6 +59,12 @@ public class GoodsService {
     public List<Goods> getGoods(int start,int count) {
         try(GoodsDao dao = daoFactory.createGoodsDao()) {
             return dao.find(start,count);
+        }
+    }
+
+    public boolean changeGoods(Goods changed) {
+        try(GoodsDao dao = daoFactory.createGoodsDao()) {
+            return dao.update(changed);
         }
     }
 }
