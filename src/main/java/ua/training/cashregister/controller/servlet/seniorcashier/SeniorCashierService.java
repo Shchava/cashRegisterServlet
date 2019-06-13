@@ -1,6 +1,7 @@
 package ua.training.cashregister.controller.servlet.seniorcashier;
 
 import ua.training.cashregister.controller.command.Command;
+import ua.training.cashregister.controller.command.seniorcashier.GetAllReceipts;
 import ua.training.cashregister.controller.command.seniorcashier.GetAllStaff;
 import ua.training.cashregister.controller.command.seniorcashier.Register;
 
@@ -21,6 +22,7 @@ public class SeniorCashierService extends HttpServlet {
     public void init(ServletConfig servletConfig) {
         commands.put("register", new Register());
         commands.put("getStaff", new GetAllStaff());
+        commands.put("getAllReceipts", new GetAllReceipts());
     }
 
     @Override

@@ -126,4 +126,15 @@ public class ReceiptService {
     }
 
 
+    public int getNumberOfRecords() {
+        try(ReceiptDao dao = daoFactory.createReceiptDao()) {
+            return dao.getNumberOfRows();
+        }
+    }
+
+    public List<Receipt> getReceipts(int offset, int recordsPerPage) {
+        try(ReceiptDao dao = daoFactory.createReceiptDao()) {
+            return dao.find(offset,recordsPerPage);
+        }
+    }
 }

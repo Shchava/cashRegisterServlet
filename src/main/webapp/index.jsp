@@ -11,5 +11,6 @@
 <a href="/merchandiser/api/showWarehouse"> warehouse </a><br>
 <a href="/cashier/api/openreceipt"> add Receipt </a><br>
 <a href="/cashier/api/listReceipts"> list my Receipts </a><br>
+<a href="/seniorcashier/api/getAllReceipts"> list all Receipts </a><br>
 </body>
 </html>
