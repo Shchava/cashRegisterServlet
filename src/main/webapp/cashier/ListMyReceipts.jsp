@@ -36,7 +36,7 @@
                 <th><c:out value="${receipt.created.format(foramter)}"/></th>
                 <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${receipt.sum/100.0}"/> UAH</th>
                 <th><a class="btn btn-primary btn-block" role="button"
-                    href="/cashier/api/listReceipts?id=${receipt.id}">open</a></th></th>
+                    href="/cashier/api/showReceipt?id=${receipt.id}">open</a></th></th>
             </tr>
         </c:forEach>
     </table>
