@@ -1,5 +1,6 @@
-package ua.training.cashregister.controller.command;
+package ua.training.cashregister.controller.command.cashier;
 
+import ua.training.cashregister.controller.command.Command;
 import ua.training.cashregister.entity.Goods;
 import ua.training.cashregister.entity.Receipt;
 import ua.training.cashregister.entity.User;

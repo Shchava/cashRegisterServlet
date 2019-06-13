@@ -1,5 +1,6 @@
-package ua.training.cashregister.controller.command;
+package ua.training.cashregister.controller.command.cashier;
 
+import ua.training.cashregister.controller.command.Command;
 import ua.training.cashregister.entity.Goods;
 import ua.training.cashregister.entity.Receipt;
 import ua.training.cashregister.entity.ReceiptEntry;
@@ -10,7 +11,7 @@ import ua.training.cashregister.service.user.UserAuthentification;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-public class AddGoods implements Command{
+public class AddGoodsToReceipt implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         ReceiptService receiptService = new ReceiptService();
