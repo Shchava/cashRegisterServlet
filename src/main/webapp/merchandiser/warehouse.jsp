@@ -12,6 +12,8 @@
 <html>
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <title>Warehouse</title>
 </head>
 <body>
@@ -37,6 +39,36 @@
     </c:forEach>
 </table>
     <button type="button" class="btn btn-primary btn-block" onclick="window.location.href = '/merchandiser/addGoods.jsp';">add goods</button>
+
+    <ul class="pagination">
+        <c:if test="${1 != 1}">
+            <li class="page-item"><a class="page-link"
+                                     href="ReadCountries?recordsPerPage=${recordsPerPage}&currentPage=${currentPage-1}">Previous</a>
+            </li>
+        </c:if>
+
+        <c:forEach begin="1" end="${4}" var="i">
+            <c:choose>
+                <c:when test="${currentPage eq i}">
+                    <li class="page-item active"><a class="page-link">
+                            ${i} <span class="sr-only">(current)</span></a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item"><a class="page-link"
+                                             href="ReadCountries?recordsPerPage=${recordsPerPage}&currentPage=${i}">${i}</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+
+        <c:if test="${3 lt 4    }">
+            <li class="page-item"><a class="page-link"
+                                     href="ReadCountries?recordsPerPage=${recordsPerPage}&currentPage=${currentPage+1}">Next</a>
+            </li>
+        </c:if>
+    </ul>
 </div>
+
 </body>
 </html>
