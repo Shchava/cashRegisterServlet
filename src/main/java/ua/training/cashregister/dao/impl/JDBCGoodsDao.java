@@ -63,7 +63,10 @@ public class JDBCGoodsDao implements GoodsDao {
         int count = 0;
         final String query = "SELECT COUNT(*)FROM goods";
         try(Statement statement = connection.createStatement()){
-            count = statement.executeUpdate(query);
+            ResultSet rs = statement.executeQuery(query);
+            if(rs.next()){
+                count = rs.getInt("COUNT(*)");
+            }
         }catch (Exception ex){
             ex.printStackTrace();
         }
