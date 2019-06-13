@@ -15,4 +15,18 @@ public class UserServices {
             return dao.findAll();
         }
     }
+
+
+
+    public int getNumberOfRecords() {
+        try(UserDao dao = daoFactory.createUserDao()) {
+            return dao.getNumberOfRows();
+        }
+    }
+
+    public List<User> getAllUsers(int offset, int recordsPerPage) {
+        try(UserDao dao = daoFactory.createUserDao()) {
+            return dao.find(offset,recordsPerPage);
+        }
+    }
 }
