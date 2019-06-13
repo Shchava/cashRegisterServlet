@@ -2,6 +2,7 @@ package ua.training.cashregister.controller.servlet.merchandiser;
 
 import ua.training.cashregister.controller.command.Command;
 import ua.training.cashregister.controller.command.merchandiser.AddGoodsToWarehouse;
+import ua.training.cashregister.controller.command.merchandiser.ChangeGoodsEntry;
 import ua.training.cashregister.controller.command.merchandiser.ShowWarehouse;
 
 import javax.servlet.ServletConfig;
@@ -21,6 +22,7 @@ public class MerchandiserService extends HttpServlet {
     public void init(ServletConfig servletConfig) {
         commands.put("showWarehouse", new ShowWarehouse());
         commands.put("addGoods", new AddGoodsToWarehouse());
+        commands.put("editEntry", new ChangeGoodsEntry());
     }
 
     @Override
