@@ -30,24 +30,15 @@ public class JDBCGoodsDao implements GoodsDao {
     }
 
     @Override
+    public List<Goods> find(int start, int count) {
+        final String query = " SELECT SQL_CALC_FOUND_ROWS * FROM goods LIMIT " + start +","+count;
+        return selectAllFromQuery(query);
+    }
+
+    @Override
     public List<Goods> findAll() {
-        List<Goods> goodsList = new ArrayList<>();
-        GoodsMapper mapper = new GoodsMapper();
-
         final String query = "SELECT * FROM goods";
-        try (Statement st = connection.createStatement()) {
-            ResultSet rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                Goods goods = mapper.extractFromResultSet(rs);
-                goodsList.add(goods);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return goodsList;
-        }
-
-        return goodsList;
+        return selectAllFromQuery(query);
     }
 
     @Override
@@ -163,5 +154,24 @@ public class JDBCGoodsDao implements GoodsDao {
             entity.setId(generatedKeys.getLong(1));
             System.out.println();
         }
+    }
+
+    private List<Goods> selectAllFromQuery(String query){
+        List<Goods> goodsList = new ArrayList<>();
+        GoodsMapper mapper = new GoodsMapper();
+
+        try (Statement st = connection.createStatement()) {
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                Goods goods = mapper.extractFromResultSet(rs);
+                goodsList.add(goods);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return goodsList;
+        }
+
+        return goodsList;
     }
 }

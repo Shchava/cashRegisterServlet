@@ -38,24 +38,15 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
+    public List<User> find(int start, int count) {
+        final String query = "SELECT SQL_CALC_FOUND_ROWS * FROM user LIMIT " + start + "," + count;
+        return getAllFromQuery(query);
+    }
+
+    @Override
     public List<User> findAll() {
-        List<User> users = new ArrayList<>();
-        UserMapper mapper = new UserMapper();
-
         final String query = "SELECT * FROM user";
-        try (Statement st = connection.createStatement()) {
-            ResultSet rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                User user = mapper.extractFromResultSet(rs);
-                users.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return users;
-        }
-
-        return users;
+        return getAllFromQuery(query);
     }
 
     @Override
@@ -141,5 +132,21 @@ public class JDBCUserDao implements UserDao {
         }
     }
 
+    private List<User> getAllFromQuery(String query){
+        List<User> users = new ArrayList<>();
+        UserMapper mapper = new UserMapper();
+        try (Statement st = connection.createStatement()) {
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                User user = mapper.extractFromResultSet(rs);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return users;
+        }
+        return users;
+    }
 
 }

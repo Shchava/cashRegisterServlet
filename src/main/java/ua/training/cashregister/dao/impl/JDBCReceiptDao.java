@@ -43,9 +43,17 @@ public class JDBCReceiptDao implements ReceiptDao {
     }
 
     @Override
+    public List<Receipt> find(int start, int count) {
+        List<Receipt> receiptList = new ArrayList<>();
+        final String query = "SELECT SQL_CALC_FOUND_ROWS * FROM receipt " +
+                "LEFT JOIN user ON(receipt.cashier = user.id_user)"+
+                "LIMIT " + start + "," + count;
+        return selectAllFromQuery(receiptList,query);
+    }
+
+    @Override
     public List<Receipt> findAll() {
         List<Receipt> receiptList = new ArrayList<>();
-        ReceiptMapper mapper = new ReceiptMapper();
 
         final String query = "SELECT * FROM receipt " +
                              "LEFT JOIN user ON(receipt.cashier = user.id_user);";
