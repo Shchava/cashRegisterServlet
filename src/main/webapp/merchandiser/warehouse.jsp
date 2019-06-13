@@ -69,7 +69,24 @@
         </c:if>
     </ul>
 
-    <ul class="pagination"></ul>
+    <ul class="pagination">
+        records on page :
+        <c:forEach begin="5" end="20" step="5" var="r">
+            <c:choose>
+                <c:when test="${recordsPerPage eq r}">
+                    <li class="page-item active"><a class="page-link">
+                            ${r} <span class="sr-only">(current)</span></a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item"><a class="page-link"
+                                             href="/merchandiser/api/showWarehouse?recordsPerPage=${r}&page=${page}">${r}</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+
+    </ul>
 </div>
 
 </body>
