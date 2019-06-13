@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-    <form action = "/merchandiser/addGoods/" method="POST">
+    <form action = "/merchandiser/api/addGoods" method="POST">
         <div class="form-group">
             <input type="text" name="name" class="form-control" placeholder="name" value="" />
         </div>

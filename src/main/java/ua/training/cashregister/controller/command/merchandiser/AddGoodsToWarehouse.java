@@ -23,6 +23,6 @@ public class AddGoodsToWarehouse implements Command {
         boolean registered = services.addGoods(goods);
 
         request.setAttribute("registered", registered);
-        return "/merchandiser/addGoods.jsp";
+        return "/merchandiser/api/showWarehouse";
     }
 }
