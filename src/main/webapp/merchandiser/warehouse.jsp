@@ -49,7 +49,7 @@
 
         <c:forEach begin="0" end="${requestScope.numberOfPages - 1}" var="i">
             <c:choose>
-                <c:when test="${currentPage eq requestScope.page}">
+                <c:when test="${page eq i}">
                     <li class="page-item active"><a class="page-link">
                             ${i} <span class="sr-only">(current)</span></a>
                     </li>
