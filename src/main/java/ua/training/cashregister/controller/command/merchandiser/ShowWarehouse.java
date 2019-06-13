@@ -31,6 +31,7 @@ public class ShowWarehouse implements Command {
         request.setAttribute("page",page);
         request.setAttribute("recordsPerPage",recordsPerPage);
 
+        request.setAttribute("editingId",request.getParameter("editingId"));//TODO show editing window in js
 
         List<Goods> goods = service.getGoods(offset,recordsPerPage);
 
