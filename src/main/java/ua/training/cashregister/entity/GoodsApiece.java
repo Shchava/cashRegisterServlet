@@ -29,6 +29,17 @@ public class GoodsApiece extends Goods {
     }
 
     @Override
+    public void setPrice(int price) {
+        setApiece_price(price);
+    }
+
+    @Override
+    public void setAmount(int amount) {
+        setCount(amount);
+    }
+
+
+    @Override
     public String getAmountMarking() {
         return "pt";
     }

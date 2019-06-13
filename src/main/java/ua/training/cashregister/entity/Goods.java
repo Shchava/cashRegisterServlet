@@ -28,6 +28,10 @@ public abstract class Goods {
 
     public abstract int getSum();
 
+    public abstract void setPrice(int price);
+
+    public abstract void setAmount(int amount);
+
     public abstract String getAmountMarking();
 
     public abstract String getPriceMarking();

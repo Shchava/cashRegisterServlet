@@ -29,6 +29,16 @@ public class GoodsByWeight extends Goods {
     }
 
     @Override
+    public void setPrice(int price) {
+        setWeight_price(price);
+    }
+
+    @Override
+    public void setAmount(int amount) {
+        setWeight(amount);
+    }
+
+    @Override
     public String getAmountMarking() {
         return "g";
     }
