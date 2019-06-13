@@ -107,9 +107,23 @@ public class ReceiptService {
         }
     }
 
+    public List<Receipt> findReceiptsByCashierId(long id, int offset, int recordsPerPage) {
+        try(ReceiptDao dao = daoFactory.createReceiptDao()) {
+            return dao.findByUserId(id,offset,recordsPerPage);
+        }
+    }
+
     public Optional<Receipt> findReceipt(long id) {
         try(ReceiptDao dao = daoFactory.createReceiptDao()) {
             return dao.findById(id);
         }
     }
+
+    public int countReceiptsByCashierId(long id) {
+        try(ReceiptDao dao = daoFactory.createReceiptDao()) {
+            return dao.getNumberOfReceiptsByUserId(id);
+        }
+    }
+
+
 }

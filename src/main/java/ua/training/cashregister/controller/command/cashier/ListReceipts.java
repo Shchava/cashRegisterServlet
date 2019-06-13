@@ -1,6 +1,7 @@
 package ua.training.cashregister.controller.command.cashier;
 
 import ua.training.cashregister.controller.command.Command;
+import ua.training.cashregister.controller.command.utilities.PaginationUtility;
 import ua.training.cashregister.entity.Receipt;
 import ua.training.cashregister.entity.User;
 import ua.training.cashregister.service.receipt.ReceiptService;
@@ -14,7 +15,14 @@ public class ListReceipts implements Command {
         ReceiptService service = new ReceiptService();
 
         User user = (User)request.getSession().getAttribute("LoggedUser");
-        List<Receipt> found = service.findReceiptsByCashierId(user.getId());
+
+        int rows = service.countReceiptsByCashierId(user.getId());
+
+        PaginationUtility utility = new PaginationUtility();
+
+        utility.setAttributes(request,rows);
+
+        List<Receipt> found = service.findReceiptsByCashierId(user.getId(),utility.getOffset(),utility.getRecordsPerPage());
 
         request.setAttribute("FoundReceipts",found);
         return "/cashier/ListMyReceipts.jsp";

@@ -96,6 +96,17 @@ public class JDBCReceiptDao implements ReceiptDao {
     }
 
     @Override
+    public List<Receipt> findByUserId(long userId, int offset, int numberOfEntries) {
+        List<Receipt> receiptList = new ArrayList<>();
+
+        final String query = "SELECT SQL_CALC_FOUND_ROWS * FROM receipt " +
+                "LEFT JOIN user ON(receipt.cashier = user.id_user) " +
+                "WHERE user.id_user = " + userId +
+                " LIMIT " + offset +","+numberOfEntries;
+        return selectAllFromQuery(receiptList,query);
+    }
+
+    @Override
     public Optional<Receipt> findNotClosedByUserId(long userId) {
         final String query = "SELECT * FROM receipt " +
                 "LEFT JOIN user ON(receipt.cashier = user.id_user) " +
@@ -154,6 +165,23 @@ public class JDBCReceiptDao implements ReceiptDao {
             ex.printStackTrace();
         }
         return created;
+    }
+
+    @Override
+    public int getNumberOfReceiptsByUserId(long id) {
+        int count = 0;
+        final String query = "SELECT COUNT(*) FROM receipt " +
+                "LEFT JOIN user ON(receipt.cashier = user.id_user) " +
+                "WHERE user.id_user = " + id;
+        try(Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery(query);
+            if(rs.next()){
+                count = rs.getInt("COUNT(*)");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return count;
     }
 
     @Override

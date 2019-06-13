@@ -56,54 +56,55 @@
     </c:forEach>
 </table>
     <button type="button" class="btn btn-primary btn-block" onclick="window.location.href = '/merchandiser/addGoods.jsp';">add goods</button>
+    <div>
+        <ul class="pagination">
+            <c:if test="${1 != page}">
+                <li class="page-item"><a class="page-link"
+                                         href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${page - 1}">Previous</a>
+                </li>
+            </c:if>
 
-    <ul class="pagination">
-        <c:if test="${1 != page}">
-            <li class="page-item"><a class="page-link"
-                                     href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${page - 1}">Previous</a>
-            </li>
-        </c:if>
+            <c:forEach begin="1" end="${requestScope.numberOfPages}" var="i">
+                <c:choose>
+                    <c:when test="${page eq i}">
+                        <li class="page-item active"><a class="page-link">
+                                ${i} <span class="sr-only">(current)</span></a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link"
+                                                 href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${i}">${i}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
 
-        <c:forEach begin="1" end="${requestScope.numberOfPages}" var="i">
-            <c:choose>
-                <c:when test="${page eq i}">
-                    <li class="page-item active"><a class="page-link">
-                            ${i} <span class="sr-only">(current)</span></a>
-                    </li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item"><a class="page-link"
-                                             href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${i}">${i}</a>
-                    </li>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
+            <c:if test="${page lt numberOfPages}">
+                <li class="page-item"><a class="page-link"
+                                         href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${page+1}">Next</a>
+                </li>
+            </c:if>
+        </ul>
 
-        <c:if test="${page lt numberOfPages}">
-            <li class="page-item"><a class="page-link"
-                                     href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${page+1}">Next</a>
-            </li>
-        </c:if>
-    </ul>
+        <ul class="pagination">
+            records on page :
+            <c:forEach begin="5" end="20" step="5" var="r">
+                <c:choose>
+                    <c:when test="${recordsPerPage eq r}">
+                        <li class="page-item active"><a class="page-link">
+                                ${r} <span class="sr-only">(current)</span></a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link"
+                                                 href="/merchandiser/api/showWarehouse?recordsPerPage=${r}&page=${1}">${r}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
 
-    <ul class="pagination">
-        records on page :
-        <c:forEach begin="5" end="20" step="5" var="r">
-            <c:choose>
-                <c:when test="${recordsPerPage eq r}">
-                    <li class="page-item active"><a class="page-link">
-                            ${r} <span class="sr-only">(current)</span></a>
-                    </li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item"><a class="page-link"
-                                             href="/merchandiser/api/showWarehouse?recordsPerPage=${r}&page=${1}">${r}</a>
-                    </li>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-
-    </ul>
+        </ul>
+    </div>
 </div>
 
 </body>

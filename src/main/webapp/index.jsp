@@ -10,6 +10,6 @@
 <a href="/seniorcashier/getStaff/"> find users </a><br>
 <a href="/merchandiser/api/showWarehouse"> warehouse </a><br>
 <a href="/cashier/api/openreceipt"> add Receipt </a><br>
-<a href="/cashier/api/listreceipts"> list my Receipts </a><br>
+<a href="/cashier/api/listReceipts"> list my Receipts </a><br>
 </body>
 </html>

@@ -22,7 +22,7 @@ public class CashierService extends HttpServlet {
         commands.put("findgoods", new FindGoods());
         commands.put("addgoods", new AddGoodsToReceipt());
         commands.put("closereceipt", new CloseReceipt());
-        commands.put("listreceipts", new ListReceipts());
+        commands.put("listReceipts", new ListReceipts());
         commands.put("showReceipt", new ShowReceipt());
     }
 
