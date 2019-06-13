@@ -37,7 +37,7 @@
             <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${goods.price/100.0}"/> <c:out value="${goods.priceMarking}"/></th>
             <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${goods.sum/100.0}"/> UAH</th>
             <th><a class="btn btn-primary btn-block" role="button"
-                   href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${page}&editingId=${goods.id}">${r}edit</a></th>
+                   href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${page}&editingId=${goods.id}">edit</a></th>
             </c:when>
             <c:otherwise>
                 <form action="/merchandiser/api/editEntry?recordsPerPage=${recordsPerPage}&page=${page}&editingId=${goods.id}">
