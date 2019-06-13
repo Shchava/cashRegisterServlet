@@ -14,7 +14,7 @@
     <title>Register</title>
 </head>
 <body>
-    <form action="/seniorcashier/register/" method="POST">
+    <form action="/seniorcashier/api/register" method="POST">
         <input type="text" name="username"><br>
         <input type="text" name="email"><br>
         <input type="password" name="password"><br>
