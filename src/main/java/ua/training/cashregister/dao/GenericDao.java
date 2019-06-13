@@ -8,6 +8,7 @@ public interface GenericDao<T> extends AutoCloseable{
     List<T> findAll();
     List<T> find(int start,int count);
     Optional<T> findById(long id);
+    int getNumberOfRows();
     boolean update(T entity);
     boolean delete(long id);
     void close();

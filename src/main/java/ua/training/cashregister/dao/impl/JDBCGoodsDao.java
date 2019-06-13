@@ -59,6 +59,18 @@ public class JDBCGoodsDao implements GoodsDao {
     }
 
     @Override
+    public int getNumberOfRows() {
+        int count = 0;
+        final String query = "SELECT COUNT(*)FROM goods";
+        try(Statement statement = connection.createStatement()){
+            count = statement.executeUpdate(query);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return count;
+    }
+
+    @Override
     public List<Goods> findByName(String name){
         List<Goods> goodsList = new ArrayList<>();
         GoodsMapper mapper = new GoodsMapper();

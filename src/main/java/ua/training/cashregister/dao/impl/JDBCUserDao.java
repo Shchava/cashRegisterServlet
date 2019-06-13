@@ -67,6 +67,17 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
+    public int getNumberOfRows() {
+        int count = 0;
+        final String query = "SELECT COUNT(*)FROM user";
+        try(Statement statement = connection.createStatement()){
+            count = statement.executeUpdate(query);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return count;
+    }
+    @Override
     public Optional<User> findByUsername(String username) {
         User user = null;
         UserMapper mapper = new UserMapper();

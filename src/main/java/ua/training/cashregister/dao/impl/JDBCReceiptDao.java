@@ -71,6 +71,18 @@ public class JDBCReceiptDao implements ReceiptDao {
     }
 
     @Override
+    public int getNumberOfRows() {
+        int count = 0;
+        final String query = "SELECT COUNT(*)FROM receipt";
+        try(Statement statement = connection.createStatement()){
+            count = statement.executeUpdate(query);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return count;
+    }
+
+    @Override
     public List<Receipt> findByUserId(long userId) {
         List<Receipt> receiptList = new ArrayList<>();
 
