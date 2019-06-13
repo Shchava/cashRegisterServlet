@@ -25,6 +25,7 @@
         <th>amount</th>
         <th>price</th>
         <th>sum</th>
+        <th></th>
     </tr>
     <c:forEach items="${requestScope.StoredGoods}" var="goods">
     <tr>
@@ -33,7 +34,8 @@
         <th><c:out value="${goods.amount}"/> <c:out value="${goods.amountMarking}"/></th>
         <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${goods.price/100.0}"/> <c:out value="${goods.priceMarking}"/></th>
         <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${goods.price/100.0}"/> UAH</th>
-
+        <th><a class="btn btn-primary btn-block" role="button"
+               href="/merchandiser/api/editEntry?recordsPerPage=${r}&page=${page}&editingId=${goods.id}">${r}edit</a></th>
     </tr>
 
     </c:forEach>
