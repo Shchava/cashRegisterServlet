@@ -41,13 +41,13 @@
     <button type="button" class="btn btn-primary btn-block" onclick="window.location.href = '/merchandiser/addGoods.jsp';">add goods</button>
 
     <ul class="pagination">
-        <c:if test="${0 != page}">
+        <c:if test="${1 != page}">
             <li class="page-item"><a class="page-link"
                                      href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${page - 1}">Previous</a>
             </li>
         </c:if>
 
-        <c:forEach begin="0" end="${requestScope.numberOfPages - 1}" var="i">
+        <c:forEach begin="1" end="${requestScope.numberOfPages}" var="i">
             <c:choose>
                 <c:when test="${page eq i}">
                     <li class="page-item active"><a class="page-link">
@@ -56,18 +56,20 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item"><a class="page-link"
-                                             href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${i}">${i + 1}</a>
+                                             href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${i}">${i}</a>
                     </li>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
 
-        <c:if test="${page lt numberOfPages-1}">
+        <c:if test="${page lt numberOfPages}">
             <li class="page-item"><a class="page-link"
                                      href="/merchandiser/api/showWarehouse?recordsPerPage=${recordsPerPage}&page=${page+1}">Next</a>
             </li>
         </c:if>
     </ul>
+
+    <ul class="pagination"></ul>
 </div>
 
 </body>

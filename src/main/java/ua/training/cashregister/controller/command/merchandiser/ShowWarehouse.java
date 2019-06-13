@@ -14,7 +14,7 @@ public class ShowWarehouse implements Command {
     public String execute(HttpServletRequest request) {
         GoodsService service = new GoodsService();
 
-        int page = 0;
+        int page = 1;
         int recordsPerPage = 5;
         if(nonNull(request.getParameter("page"))){
             page = Integer.parseInt(request.getParameter("page"));
@@ -25,7 +25,7 @@ public class ShowWarehouse implements Command {
 
         int rows = service.getNumberOfRecords();
         int numberOfPages = (int) Math.ceil(rows * 1.0 / recordsPerPage);
-        int offset = page*recordsPerPage;
+        int offset = (page - 1)*recordsPerPage;
 
         request.setAttribute("numberOfPages",numberOfPages);
         request.setAttribute("page",page);
