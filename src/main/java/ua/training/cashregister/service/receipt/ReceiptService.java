@@ -106,4 +106,10 @@ public class ReceiptService {
             return dao.findByUserId(id);
         }
     }
+
+    public Optional<Receipt> findReceipt(long id) {
+        try(ReceiptDao dao = daoFactory.createReceiptDao()) {
+            return dao.findById(id);
+        }
+    }
 }
