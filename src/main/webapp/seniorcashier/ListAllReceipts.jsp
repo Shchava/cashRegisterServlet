@@ -47,7 +47,7 @@
         <ul class="pagination">
             <c:if test="${1 ne page}">
                 <li class="page-item"><a class="page-link"
-                                         href="/seniorcashier/api/getAllReceipts?recordsPerPage=${recordsPerPage}&page=${page - 1}">Previous</a>
+                                         href="/seniorcashier/api/getAllReceipts?recordsPerPage=${recordsPerPage}&page=${page - 1}"><fmt:message key="pagination.previous"/></a>
                 </li>
             </c:if>
 
@@ -68,7 +68,7 @@
 
             <c:if test="${page lt numberOfPages}">
                 <li class="page-item"><a class="page-link"
-                                         href="/seniorcashier/api/getAllReceipts?recordsPerPage=${recordsPerPage}&page=${page+1}">Next</a>
+                                         href="/seniorcashier/api/getAllReceipts?recordsPerPage=${recordsPerPage}&page=${page+1}"><fmt:message key="pagination.next"/></a>
                 </li>
             </c:if>
         </ul>
