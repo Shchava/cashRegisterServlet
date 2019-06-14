@@ -67,7 +67,7 @@
                 <th><c:out value="${receipt.created.format(foramter)}"/></th>
                 <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${receipt.sum/100.0}"/> <fmt:message key="money.UAH"/></th>
                 <th><a class="btn btn-primary btn-block" role="button"
-                       href="/seniorcashier/api/getAllReceipts?id=${receipt.id}"><fmt:message key="list.all.receipts.open"/></a></th></th>
+                       href="/cashier/api/showReceipt?id=${receipt.id}"><fmt:message key="list.all.receipts.open"/></a></th></th>
             </tr>
         </c:forEach>
     </table>
