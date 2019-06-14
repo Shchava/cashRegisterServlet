@@ -38,7 +38,7 @@ public class SeniorCashierServlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
         path = path.replaceAll(".*/seniorcashier/api/" , "");
-        Command command = commands.getOrDefault(path , (r)->"/index.jsp");
+        Command command = commands.getOrDefault(path , (r)->"/seniorcashier/startPage.jsp");
         String page = command.execute(request);
         request.getRequestDispatcher(page).forward(request,response);
     }
