@@ -20,9 +20,11 @@ public class JDBCReceiptDao implements ReceiptDao {
 
     @Override
     public boolean create(Receipt entity) {
+
         boolean created = false;
         final String query = "INSERT INTO receipt(created,cashier) VALUES(?,?)";
         try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
+            connection.setAutoCommit(false);
             if(entity.getCreated() != null) {
                 statement.setTimestamp(1, Timestamp.valueOf(entity.getCreated()));
             }else{
@@ -33,9 +35,14 @@ public class JDBCReceiptDao implements ReceiptDao {
             int affected = statement.executeUpdate();
             if(affected == 1){
                 setId(entity,statement);
-                created = true;
+                created = createEntries(entity.getEntries());
             }
-            createEntries(entity.getEntries());
+            if(created){
+                connection.commit();
+            }else{
+                connection.rollback();
+            }
+            connection.setAutoCommit(false);
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -263,13 +270,16 @@ public class JDBCReceiptDao implements ReceiptDao {
         return receiptList;
     }
 
-    private void createEntries(List<ReceiptEntry> entries) throws SQLException {
+    private boolean createEntries(List<ReceiptEntry> entries) throws SQLException {
         final String query = "INSERT INTO receipt_entry (id_receipt,id_goods,amount,price) VALUES(?,?,?,?)";
         try(PreparedStatement statement =  connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             for(ReceiptEntry entry : entries) {
-                createEntry(entry,statement);
+                if(!createEntry(entry,statement)){
+                    return false;
+                };
             }
         }
+        return true;
     }
 
 
