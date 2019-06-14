@@ -1,9 +1,7 @@
-package ua.training.cashregister.controller.servlet.seniorcashier;
+package ua.training.cashregister.controller.servlet.cashier;
 
-import ua.training.cashregister.controller.command.Command;
-import ua.training.cashregister.controller.command.seniorcashier.GetAllReceipts;
-import ua.training.cashregister.controller.command.seniorcashier.GetAllStaff;
-import ua.training.cashregister.controller.command.seniorcashier.Register;
+import ua.training.cashregister.controller.command.*;
+import ua.training.cashregister.controller.command.cashier.*;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -15,14 +13,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/seniorcashier/api/*")
-public class SeniorCashierService extends HttpServlet {
+@WebServlet("/cashier/api/*")
+public class CashierServlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
 
     public void init(ServletConfig servletConfig) {
-        commands.put("register", new Register());
-        commands.put("getStaff", new GetAllStaff());
-        commands.put("getAllReceipts", new GetAllReceipts());
+        commands.put("openreceipt", new OpenReceipt());
+        commands.put("findgoods", new FindGoods());
+        commands.put("addgoods", new AddGoodsToReceipt());
+        commands.put("closereceipt", new CloseReceipt());
+        commands.put("listReceipts", new ListReceipts());
+        commands.put("showReceipt", new ShowReceipt());
     }
 
     @Override
@@ -37,7 +38,7 @@ public class SeniorCashierService extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
-        path = path.replaceAll(".*/seniorcashier/api/" , "");
+        path = path.replaceAll(".*/cashier/api/" , "");
         Command command = commands.getOrDefault(path , (r)->"/index.jsp");
         String page = command.execute(request);
         request.getRequestDispatcher(page).forward(request,response);
