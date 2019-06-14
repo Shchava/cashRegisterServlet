@@ -1,13 +1,17 @@
 package ua.training.cashregister.controller.filter;
 
 import javax.ejb.Local;
+import javax.jms.Session;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import static java.util.Objects.nonNull;
 
 @WebFilter("/*")
 public class LocalizationFilter implements Filter {
@@ -19,23 +23,25 @@ public class LocalizationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        servletResponse.setLocale(new Locale("en_US"));
-
-        Locale uLocale = new Locale.Builder().setLanguage("uk").setRegion("UA").build();
-        servletResponse.setLocale(uLocale);
         HttpServletRequest req =  (HttpServletRequest)servletRequest;
-        req.setAttribute("loc",uLocale);
+        HttpSession session = req.getSession();
+        Locale locale;
+
+        if(nonNull(req.getParameter("lang"))){
+            locale = getLocaleFromLang((String)req.getParameter("lang"));
+        }else{
+            if(nonNull(session.getAttribute("Locale"))){
+                locale = (Locale)session.getAttribute("Locale");
+            }else{
+                locale = new Locale("en","EN");
+            }
+        }
+
+        session.setAttribute("Locale",locale);
+        servletResponse.setLocale(locale);
+
         servletResponse.setCharacterEncoding("UTF-8");
         servletRequest.setCharacterEncoding("UTF-8");
-
-
-
-
-        ResourceBundle rs = ResourceBundle.getBundle("messages",uLocale);
-
-        System.out.println(rs.getString("login.password"));
-
-
 
         filterChain.doFilter(servletRequest,servletResponse);
     }
@@ -43,5 +49,15 @@ public class LocalizationFilter implements Filter {
     @Override
     public void destroy() {
 
+    }
+
+    private Locale getLocaleFromLang(String lang){
+        Locale locale;
+        if(lang.equals("UA")){
+            locale = new Locale("uk","UA");
+        }else{
+            locale = new Locale("en","EN");
+        }
+        return locale;
     }
 }
