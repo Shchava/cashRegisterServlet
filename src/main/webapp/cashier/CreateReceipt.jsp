@@ -9,19 +9,23 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
+
+<fmt:setLocale value="${pageContext.response.locale}"/>
+<fmt:setBundle basename="messages"/>
+
 <html>
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <title>Create Receipt</title>
+    <title><fmt:message key="create.receipt.title"/></title>
 </head>
 <body>
     <table class = "table">
         <tr>
-            <th>ID</th>
-            <th>name</th>
-            <th>amount</th>
-            <th>price</th>
-            <th>sum</th>
+            <th><fmt:message key="create.receipt.id"/></th>
+            <th><fmt:message key="create.receipt.name"/></th>
+            <th><fmt:message key="create.receipt.amount"/></th>
+            <th><fmt:message key="create.receipt.price"/></th>
+            <th><fmt:message key="create.receipt.sum"/></th>
         </tr>
 
 
@@ -29,10 +33,11 @@
             <tr>
             <th><c:out value="${entry.goods.id}"/></th>
             <th><c:out value="${entry.goods.name}"/></th>
-            <th><c:out value="${entry.amount}"/> <c:out value="${entry.goods.amountMarking}"/></th>
+            <th><c:out value="${entry.amount}"/> <fmt:message key="${'goods.amount.marking.'.concat(entry.goods.amountMarking)}"/></th>
             <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${entry.goods.price/100.0}"/>
-                <c:out value="${entry.goods.priceMarking}"/></th>
-            <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${entry.price/100.0}"/> UAH</th>
+                <fmt:message key="${'goods.price.marking.'.concat(entry.goods.priceMarking)}"/></th>
+            <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${entry.price/100.0}"/>
+                <fmt:message key="money.UAH"/></th>
             </tr>
         </c:forEach>
     </table>
@@ -40,13 +45,13 @@
     <c:if test="${empty requestScope.found}">
         <form method="get" action="/cashier/api/findgoods">
             <div class="form-group">
-                <input type="text" name="ID" class="form-control" placeholder="ID" value="" />
+                <input type="text" name="ID" class="form-control" placeholder="<fmt:message key="create.receipt.id"/>" value="" />
             </div>
             <div class="form-group">
-                <input type="text" name="name" class="form-control" placeholder="name" value="" />
+                <input type="text" name="name" class="form-control" placeholder="<fmt:message key="create.receipt.name"/>" value="" />
             </div>
             <div class="form-group">
-                <input type="submit" class="form-control"  value="Find" />
+                <input type="submit" class="form-control"  value="<fmt:message key="create.receipt.find"/>" />
             </div>
         </form>
     </c:if>
@@ -58,20 +63,21 @@
                     <th><c:out value="${requestScope.found.id}"/></th>
                     <th><c:out value="${requestScope.found.name}"/></th>
                     <th>
-                            <input type="text" name="amount" class="form-control" placeholder="Amount" value="" />
+                            <input type="text" name="amount" class="form-control" placeholder="<fmt:message key="create.receipt.amount"/>" value="" />
 
                     </th>
-                    <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${requestScope.found.price/100.0}"/> UAH</th>
-                    <th> UAH</th>
+                    <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${requestScope.found.price/100.0}"/>
+                        <fmt:message key="money.UAH"/></th>
+                    <th> <fmt:message key="money.UAH"/></th>
                 </tr>
             </table>
-                <input type="submit"  value="Add goods" />
+                <input type="submit"  value="<fmt:message key="create.receipt.add.goods"/>" />
         </form>
     </c:if>
 
     <form method="post" action="/cashier/api/closereceipt">
         <div class="form-group">
-            <input type="submit" value="Close receipt" class="form-control" >
+            <input type="submit" value="<fmt:message key="create.receipt.close"/>" class="form-control" >
         </div>
     </form>
     </div>

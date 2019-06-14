@@ -12,20 +12,23 @@
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 
+<fmt:setLocale value="${pageContext.response.locale}"/>
+<fmt:setBundle basename="messages"/>
+
 <html>
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <c:set var="foramter" value='${DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")}'/>
-    <title>Receipt list</title>
+    <title><fmt:message key="list.my.receipt.title"/></title>
 </head>
 <body>
 <div>
     <table class = "table">
         <tr>
-            <th>ID</th>
-            <th>cashier</th>
-            <th>created</th>
-            <th>sum</th>
+            <th><fmt:message key="list.my.receipt.id"/></th>
+            <th><fmt:message key="list.my.receipt.cashier"/></th>
+            <th><fmt:message key="list.my.receipt.created"/></th>
+            <th><fmt:message key="list.my.receipt.sum"/></th>
             <th></th>
         </tr>
 
@@ -36,7 +39,7 @@
                 <th><c:out value="${receipt.created.format(foramter)}"/></th>
                 <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${receipt.sum/100.0}"/> UAH</th>
                 <th><a class="btn btn-primary btn-block" role="button"
-                    href="/cashier/api/showReceipt?id=${receipt.id}">open</a></th></th>
+                    href="/cashier/api/showReceipt?id=${receipt.id}"><fmt:message key="list.my.receipt.open"/></a></th></th>
             </tr>
         </c:forEach>
     </table>
@@ -44,7 +47,7 @@
         <ul class="pagination">
             <c:if test="${1 ne page}">
                 <li class="page-item"><a class="page-link"
-                                         href="/cashier/api/listReceipts?recordsPerPage=${recordsPerPage}&page=${page - 1}">Previous</a>
+                                         href="/cashier/api/listReceipts?recordsPerPage=${recordsPerPage}&page=${page - 1}"><fmt:message key="pagination.previous"/></a>
                 </li>
             </c:if>
 
@@ -65,14 +68,14 @@
 
             <c:if test="${page lt numberOfPages}">
                 <li class="page-item"><a class="page-link"
-                                         href="/cashier/api/listReceipts?recordsPerPage=${recordsPerPage}&page=${page+1}">Next</a>
+                                         href="/cashier/api/listReceipts?recordsPerPage=${recordsPerPage}&page=${page+1}"><fmt:message key="pagination.next"/></a>
                 </li>
             </c:if>
         </ul>
 
 
         <ul class="pagination">
-            <label>records on page :</label>
+            <label><fmt:message key="pagination.entries.selector"/></label>
             <c:forEach begin="5" end="20" step="5" var="r">
                 <c:choose>
                     <c:when test="${recordsPerPage eq r}">

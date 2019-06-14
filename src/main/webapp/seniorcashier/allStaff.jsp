@@ -7,22 +7,26 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page isELIgnored="false"%>
 
+<fmt:setLocale value="${pageContext.response.locale}"/>
+<fmt:setBundle basename="messages"/>
+
 <html>
 <head>
-    <title>All staff</title>
+    <title><fmt:message key="list.all.staff.title"/></title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
 <body>
 
 <table class="table">
     <tr>
-        <th>ID</th>
-        <th>username</th>
-        <th>email</th>
-        <th>role</th>
+        <th><fmt:message key="list.all.staff.id"/></th>
+        <th><fmt:message key="list.all.staff.username"/></th>
+        <th><fmt:message key="list.all.staff.email"/></th>
+        <th><fmt:message key="list.all.staff.role"/></th>
     </tr>
 
 <c:forEach items="${staff}" var="user">
@@ -30,7 +34,7 @@
         <th><c:out value="${user.id}"/></th>
         <th><c:out value="${user.username}"/></th>
         <th><c:out value="${user.email}"/></th>
-        <th><c:out value="${user.role}"/></th>
+        <th><fmt:message key="${'user.types.'.concat(user.role)}"/></th>\
     </tr>
 </c:forEach>
 
@@ -67,7 +71,7 @@
     </ul>
 
     <ul class="pagination">
-        records on page :
+        <fmt:message key="pagination.entries.selector"/>
         <c:forEach begin="5" end="20" step="5" var="r">
             <c:choose>
                 <c:when test="${recordsPerPage eq r}">

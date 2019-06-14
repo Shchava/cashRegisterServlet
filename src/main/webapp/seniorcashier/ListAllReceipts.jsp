@@ -12,20 +12,23 @@
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 
+<fmt:setLocale value="${pageContext.response.locale}"/>
+<fmt:setBundle basename="messages"/>
+
 <html>
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <c:set var="foramter" value='${DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")}'/>
-    <title>Receipt list</title>
+    <title><fmt:message key="list.all.receipts.title"/></title>
 </head>
 <body>
 <div>
     <table class = "table">
         <tr>
-            <th>ID</th>
-            <th>cashier</th>
-            <th>created</th>
-            <th>sum</th>
+            <th><fmt:message key="list.all.receipts.id"/></th>
+            <th><fmt:message key="list.all.receipts.cashier"/></th>
+            <th><fmt:message key="list.all.receipts.created"/></th>
+            <th><fmt:message key="list.all.receipts.sum"/></th>
             <th></th>
         </tr>
 
@@ -34,9 +37,9 @@
                 <th><c:out value="${receipt.id}"/></th>
                 <th><c:out value="${receipt.cashier.username}"/></th>
                 <th><c:out value="${receipt.created.format(foramter)}"/></th>
-                <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${receipt.sum/100.0}"/> UAH</th>
+                <th><fmt:formatNumber type = "number" minFractionDigits = "2" value = "${receipt.sum/100.0}"/> <fmt:message key="money.UAH"/></th>
                 <th><a class="btn btn-primary btn-block" role="button"
-                       href="/seniorcashier/api/getAllReceipts?id=${receipt.id}">open</a></th></th>
+                       href="/seniorcashier/api/getAllReceipts?id=${receipt.id}"><fmt:message key="list.all.receipts.open"/></a></th></th>
             </tr>
         </c:forEach>
     </table>
@@ -72,7 +75,7 @@
 
 
         <ul class="pagination">
-            <label>records on page :</label>
+            <label><fmt:message key="pagination.entries.selector"/></label>
             <c:forEach begin="5" end="20" step="5" var="r">
                 <c:choose>
                     <c:when test="${recordsPerPage eq r}">
